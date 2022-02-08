@@ -38,24 +38,39 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const octokit_1 = __nccwpck_require__(3791);
+const path = __importStar(__nccwpck_require__(9411));
 const config_1 = __nccwpck_require__(8562);
+//  ====
+//  MAIN
+//  ====
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             for (const gist of config_1.gists) {
-                const existingGist = yield octokit_1.octokit.rest.gists.get({
-                    gist_id: gist.gistID,
+                //  Check if the gist already exists
+                const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id });
+                if (!existingGist) { //  Skip iteration if it doesn't
+                    console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`);
+                    continue;
+                }
+                //  Populate files object
+                let files = {};
+                gist.files.forEach(pathName => {
+                    const workspacePathName = path.join(config_1.workspaceURL, pathName);
+                    const fileName = path.parse(workspacePathName).name;
+                    const contents = "Hello " + gist.id;
+                    files[fileName] = { contents };
                 });
-                if (existingGist) {
-                    console.log('Updating', gist.gistID, gist.files);
-                    yield octokit_1.octokit.rest.gists.update({
-                        gist_id: gist.gistID,
-                        files: gist.files
-                    });
+                console.log(`Updating Gist (ID: ${gist.id})`);
+                //  Skip if dry-run
+                if (config_1.isDryRun) {
+                    continue;
                 }
-                else {
-                    console.warn("Gist does not exist");
-                }
+                //  Update gist
+                yield octokit_1.octokit.rest.gists.update({
+                    gist_id: gist.id,
+                    files
+                });
             }
         }
         catch (err) {
@@ -95,7 +110,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gists = exports.isDryRun = void 0;
+exports.gists = exports.workspaceURL = exports.isDryRun = void 0;
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const fs = __importStar(__nccwpck_require__(7561));
@@ -104,18 +119,19 @@ const yaml = __importStar(__nccwpck_require__(1917));
 //  ======
 //  CONFIG
 //  ======
-//  Dry-Run Toggle
+/** Dry-run toggle. No actual changes will be made while this is true. */
 exports.isDryRun = (_a = core.getBooleanInput('dryrun')) !== null && _a !== void 0 ? _a : false;
 //  Read gists.yaml
-const workspaceURL = process.env.GITHUB_WORKSPACE || '';
+exports.workspaceURL = process.env.GITHUB_WORKSPACE || '';
 const fileName = core.getInput('gists');
 let fileContents;
 try {
-    fileContents = fs.readFileSync(path.join(workspaceURL, '.github', fileName), 'utf-8');
+    fileContents = fs.readFileSync(path.join(exports.workspaceURL, '.github', fileName), 'utf-8');
 }
 catch (_) {
     fileContents = '';
 }
+/** Contents of the gists.yaml file. Maps files to gistIDs */
 exports.gists = yaml.load(fileContents);
 
 
@@ -153,13 +169,14 @@ const github = __importStar(__nccwpck_require__(5438));
 //  =======
 //  OCTOKIT
 //  =======
-const GITHUB_ACCESS_TOKEN = process.env.GIST_TOKEN || '';
-if (!GITHUB_ACCESS_TOKEN) {
-    core.setFailed('Invalid GITHUB_ACCESS_TOKEN');
+/** Personal-Access-Token with gist permissions. */
+const GIST_TOKEN = process.env.GIST_TOKEN || '';
+if (!GIST_TOKEN) {
+    core.setFailed('Invalid GIST_TOKEN');
 }
-//  ---------------------------------------------------------
-exports.octokit = github.getOctokit(GITHUB_ACCESS_TOKEN);
-//  ---------------------------------------------------------
+//  ------------------------------------------------
+exports.octokit = github.getOctokit(GIST_TOKEN);
+//  ------------------------------------------------
 
 
 /***/ }),
