@@ -11,11 +11,11 @@ try {
             gist_id: gist.gistID,
             files: gist.files
         })
-        octokit.rest.gists.get({
-            gist_id: gist.gistID,
-        })
-            .then((res) => console.log(res.data.description))
-            .catch(err => console.error(err))
+        // octokit.rest.gists.get({
+        //     gist_id: gist.gistID,
+        // })
+        //     .then((res) => console.log(res.data.description))
+        //     .catch(err => console.error(err))
         // octokit.rest.gists.update({
         //     gist_id: gist.gistID,
         //     files: gist.files
