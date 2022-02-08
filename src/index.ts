@@ -3,6 +3,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import { octokit } from './library/octokit'
 import { isDryRun, gists } from './library/config'
+import { File } from './types'
 
 
 async function run() {
@@ -12,10 +13,10 @@ async function run() {
                 gist_id: gist.gistID,
             })
             if (existingGist) {
-                console.log('Updating', gist.gistID)
+                console.log('Updating', gist.gistID, gist.files)
                 await octokit.rest.gists.update({
                     gist_id: gist.gistID,
-                    files: JSON.parse(JSON.stringify(gist.files))
+                    files: gist.files
                 })
             } else {
                 console.warn("Gist does not exist")
