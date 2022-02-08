@@ -47,6 +47,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             for (const gist of config_1.gists) {
+                console.log(gist.id, gist.files);
                 //  Check if the gist already exists
                 const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
                     console.warn(err);
