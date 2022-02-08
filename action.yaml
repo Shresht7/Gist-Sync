@@ -26,8 +26,8 @@ inputs:
   # -------------
 
   gists:
-    description: 'Array of fileNames and corresponding Gist IDs'
-    default: []
+    description: 'File containing the array of fileNames and corresponding Gist IDs'
+    default: 'gists.yaml'
 
 # Runs
 # ====

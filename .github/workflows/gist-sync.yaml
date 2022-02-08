@@ -41,13 +41,7 @@ jobs:
 
         with:
           dryrun: true    # Will not make any actual changes if true (default: true)
-          gists:
-            - fileName: 'Hello.txt'
-              gistID: '123'
-            - fileName: 'Bye.txt'
-              gistID: '456'
-            - fileName: 'YOLO.txt'
-              gistID: '789'
+          gists: 'gists.yaml' # File containing the file-gist mapping
 
 
         # Environment Variables
