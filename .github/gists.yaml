@@ -1,6 +1,16 @@
-- fileName: 'Hello.txt'
-  gistID: '123'
-- fileName: 'Bye.txt'
-  gistID: '456'
-- fileName: 'YOLO.txt'
-  gistID: '789'
+- gistID: '123'
+  files:
+  - 'hello.txt': 
+      content: "Hello World"
+    README.md:
+      content: "# README"
+- gistID: '456'
+  files:
+  - 'bye.txt':
+      content: "Goodbye"
+- gistID: '789'
+  files:
+  - 'YOLO.ts':
+      content: "console.log("YOLO")"
+    YOLO.go:
+      content: "package main\n\nfunc main() {}"

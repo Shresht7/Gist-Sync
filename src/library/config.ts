@@ -4,6 +4,9 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as yaml from 'js-yaml'
 
+//  Type Definitions
+import { Gist } from '../types'
+
 //  ======
 //  CONFIG
 //  ======
@@ -24,4 +27,4 @@ try {
     fileContents = ''
 }
 
-export const gists = yaml.load(fileContents)
+export const gists: Gist[] = yaml.load(fileContents) as Gist[]
