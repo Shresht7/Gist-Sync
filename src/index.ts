@@ -12,7 +12,8 @@ async function run() {
                 gist_id: gist.gistID,
             })
             if (existingGist) {
-                octokit.rest.gists.update({
+                console.log('Updating', gist.gistID)
+                await octokit.rest.gists.update({
                     gist_id: gist.gistID,
                     files: gist.files
                 })

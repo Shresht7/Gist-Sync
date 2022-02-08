@@ -47,7 +47,8 @@ function run() {
                     gist_id: gist.gistID,
                 });
                 if (existingGist) {
-                    octokit_1.octokit.rest.gists.update({
+                    console.log('Updating', gist.gistID);
+                    yield octokit_1.octokit.rest.gists.update({
                         gist_id: gist.gistID,
                         files: gist.files
                     });

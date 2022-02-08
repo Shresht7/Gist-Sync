@@ -1,16 +1,16 @@
 - gistID: 'ec35fdd1bb2fb6a06fb0ec0bf22653a8'
   files:
   - 'hello.txt': 
-      content: "Hello World"
+      contents: "Hello World"
     README.md:
-      content: "# README"
+      contents: "# README"
 - gistID: '456'
   files:
   - 'bye.txt':
-      content: "Goodbye"
+      contents: "Goodbye"
 - gistID: 'ec35fdd1bb2fb6a06fb0ec0bf22653a8'
   files:
   - 'YOLO.ts':
-      content: "console.log(\"YOLO\")"
+      contents: "console.log(\"YOLO\")"
     YOLO.go:
-      content: "package main\n\nfunc main() {}"
+      contents: "package main\n\nfunc main() {}"
