@@ -1,8 +1,37 @@
+# =========
+# GIST-SYNC
+# =========
+
 name: 'Gist-Sync'
 description: 'Sync files from your repo to gists'
 author: 'Shresht7'
+
+branding:
+  icon: code
+  color: white
+
+# Inputs
+# ======
+
 inputs:
-outputs:
+
+  # Dry-run toggle
+  # --------------
+
+  dryrun:
+    description: 'Dry-run toggle. Gist-Sync will not make any actual changes if true (default: true)'
+    default: true
+
+  # File-Gist map
+  # -------------
+
+  gists:
+    description: 'Array of fileNames and corresponding Gist IDs'
+    default: []
+
+# Runs
+# ====
+
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'
