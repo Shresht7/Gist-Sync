@@ -1,8 +1,8 @@
-export type File = {
-    content: string
-}
+//  ================
+//  TYPE DEFINITIONS
+//  ================
 
 export type Gist = {
     gistID: string,
-    files: Record<string, File>
+    files: string[]
 }
