@@ -48,11 +48,12 @@ function run() {
         try {
             for (const gist of config_1.gists) {
                 //  Check if the gist already exists
-                const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id });
-                if (!existingGist) { //  Skip iteration if it doesn't
+                const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
                     console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`);
+                });
+                if (!existingGist) {
                     continue;
-                }
+                } //  Skip iteration if it doesn't
                 //  Populate files object
                 let files = {};
                 gist.files.forEach(pathName => {

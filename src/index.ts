@@ -14,11 +14,10 @@ async function run() {
         for (const gist of gists) {
 
             //  Check if the gist already exists
-            const existingGist = await octokit.rest.gists.get({ gist_id: gist.id })
-            if (!existingGist) {    //  Skip iteration if it doesn't
+            const existingGist = await octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
                 console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
-                continue
-            }
+            })
+            if (!existingGist) { continue }    //  Skip iteration if it doesn't
 
             //  Populate files object
             let files: Record<string, { contents: string }> = {}
