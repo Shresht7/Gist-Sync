@@ -13,8 +13,6 @@ async function run() {
     try {
         for (const gist of gists) {
 
-            console.log(gist.id, gist.files)
-
             //  Check if the gist already exists
             const existingGist = await octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
                 console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
@@ -29,6 +27,9 @@ async function run() {
                 const contents = "Hello " + gist.id
                 files[fileName] = { contents }
             })
+
+            console.log(gist.id, gist.files)
+            console.log(files)
 
             console.log(`Updating Gist (ID: ${gist.id})`)
 
