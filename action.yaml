@@ -1,0 +1,8 @@
+name: 'Gist-Sync'
+description: 'Sync files from your repo to gists'
+author: 'Shresht7'
+inputs:
+outputs:
+runs:
+  using: 'node16'
+  main: 'index.js'

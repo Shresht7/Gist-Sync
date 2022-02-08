@@ -1,0 +1,23 @@
+{
+  "name": "gist-sync",
+  "version": "0.1.0",
+  "description": "Sync files from your repo to gists",
+  "main": "lib/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "package": "ncc build --source-map --license licenses.txt",
+    "build": "npm run tsc && npm run package"
+  },
+  "author": "Shresht7",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.1",
+    "jest": "^27.5.0",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  }
+}
