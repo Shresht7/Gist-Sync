@@ -11,6 +11,6 @@
 - gistID: '789'
   files:
   - 'YOLO.ts':
-      content: "console.log("YOLO")"
+      content: "console.log(\"YOLO\")"
     YOLO.go:
       content: "package main\n\nfunc main() {}"
