@@ -71,15 +71,24 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.gists = exports.isDryRun = void 0;
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
+const fs = __importStar(__nccwpck_require__(7561));
 const path = __importStar(__nccwpck_require__(9411));
 const yaml = __importStar(__nccwpck_require__(1917));
 //  ======
 //  CONFIG
 //  ======
-const workspaceURL = process.env.GITHUB_WORKSPACE || '';
+//  Dry-Run Toggle
 exports.isDryRun = (_a = core.getBooleanInput('dryrun')) !== null && _a !== void 0 ? _a : false;
+//  Read gists.yaml
+const workspaceURL = process.env.GITHUB_WORKSPACE || '';
 const fileName = core.getInput('gists');
-const fileContents = path.join(workspaceURL, '.github', fileName);
+let fileContents;
+try {
+    fileContents = fs.readFileSync(path.join(workspaceURL, '.github', fileName), 'utf-8');
+}
+catch (_) {
+    fileContents = '';
+}
 exports.gists = yaml.load(fileContents);
 
 
@@ -12544,6 +12553,14 @@ module.exports = require("https");
 
 "use strict";
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 7561:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
 
 /***/ }),
 
