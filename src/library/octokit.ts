@@ -6,7 +6,7 @@ import * as github from '@actions/github'
 //  OCTOKIT
 //  =======
 
-const GITHUB_ACCESS_TOKEN = process.env.GITHUB_TOKEN || ''
+const GITHUB_ACCESS_TOKEN = process.env.GIST_TOKEN || ''
 
 if (!GITHUB_ACCESS_TOKEN) {
     core.setFailed('Invalid GITHUB_ACCESS_TOKEN');
