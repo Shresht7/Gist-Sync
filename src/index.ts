@@ -15,7 +15,7 @@ async function run() {
                 console.log('Updating', gist.gistID)
                 await octokit.rest.gists.update({
                     gist_id: gist.gistID,
-                    files: gist.files
+                    files: JSON.parse(JSON.stringify(gist.files))
                 })
             } else {
                 console.warn("Gist does not exist")

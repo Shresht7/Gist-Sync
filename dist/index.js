@@ -50,7 +50,7 @@ function run() {
                     console.log('Updating', gist.gistID);
                     yield octokit_1.octokit.rest.gists.update({
                         gist_id: gist.gistID,
-                        files: gist.files
+                        files: JSON.parse(JSON.stringify(gist.files))
                     });
                 }
                 else {
