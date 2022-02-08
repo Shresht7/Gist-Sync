@@ -6,12 +6,13 @@ import * as github from '@actions/github'
 //  OCTOKIT
 //  =======
 
-const GITHUB_ACCESS_TOKEN = process.env.GIST_TOKEN || ''
+/** Personal-Access-Token with gist permissions. */
+const GIST_TOKEN = process.env.GIST_TOKEN || ''
 
-if (!GITHUB_ACCESS_TOKEN) {
-    core.setFailed('Invalid GITHUB_ACCESS_TOKEN');
+if (!GIST_TOKEN) {
+    core.setFailed('Invalid GIST_TOKEN');
 }
 
-//  ---------------------------------------------------------
-export const octokit = github.getOctokit(GITHUB_ACCESS_TOKEN)
-//  ---------------------------------------------------------
+//  ------------------------------------------------
+export const octokit = github.getOctokit(GIST_TOKEN)
+//  ------------------------------------------------

@@ -1,16 +1,4 @@
-- gistID: 'ec35fdd1bb2fb6a06fb0ec0bf22653a8'
+- gistID: 08f5dabb1885d015baf8ec2179cb9970
   files:
-  - 'hello.txt': 
-      contents: "Hello World"
-    README.md:
-      contents: "# README"
-- gistID: '456'
-  files:
-  - 'bye.txt':
-      contents: "Goodbye"
-- gistID: 'ec35fdd1bb2fb6a06fb0ec0bf22653a8'
-  files:
-  - 'YOLO.ts':
-      contents: "console.log(\"YOLO\")"
-    YOLO.go:
-      contents: "package main\n\nfunc main() {}"
+    - README.md
+    - .github/workflows/gist-sync.yaml
