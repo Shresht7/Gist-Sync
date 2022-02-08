@@ -28,6 +28,7 @@ async function run() {
                 files[fileName] = { content }
             })
 
+            console.log(files)
             console.log(`Updating Gist (ID: ${gist.id})`)
 
             //  Skip if dry-run

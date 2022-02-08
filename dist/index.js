@@ -62,6 +62,7 @@ function run() {
                     const content = "Hello " + gist.id;
                     files[fileName] = { content };
                 });
+                console.log(files);
                 console.log(`Updating Gist (ID: ${gist.id})`);
                 //  Skip if dry-run
                 if (config_1.isDryRun) {
