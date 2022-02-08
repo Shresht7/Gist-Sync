@@ -49,8 +49,7 @@ function run() {
             for (const gist of config_1.gists) {
                 //  Check if the gist already exists
                 const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
-                    console.warn(err);
-                    // console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
+                    console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`);
                 });
                 if (!existingGist) {
                     continue;
@@ -59,9 +58,9 @@ function run() {
                 let files = {};
                 gist.files.forEach(pathName => {
                     const workspacePathName = path.join(config_1.workspaceURL, pathName);
-                    const fileName = path.parse(workspacePathName).name;
-                    const contents = "Hello " + gist.id;
-                    files[fileName] = { contents };
+                    const fileName = path.basename(workspacePathName);
+                    const content = "Hello " + gist.id;
+                    files[fileName] = { content };
                 });
                 console.log(`Updating Gist (ID: ${gist.id})`);
                 //  Skip if dry-run

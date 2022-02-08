@@ -15,18 +15,17 @@ async function run() {
 
             //  Check if the gist already exists
             const existingGist = await octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
-                console.warn(err)
-                // console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
+                console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
             })
             if (!existingGist) { continue }    //  Skip iteration if it doesn't
 
             //  Populate files object
-            let files: Record<string, { contents: string }> = {}
+            let files: Record<string, { content: string }> = {}
             gist.files.forEach(pathName => {
                 const workspacePathName = path.join(workspaceURL, pathName)
-                const fileName = path.parse(workspacePathName).name
-                const contents = "Hello " + gist.id
-                files[fileName] = { contents }
+                const fileName = path.basename(workspacePathName)
+                const content = "Hello " + gist.id
+                files[fileName] = { content }
             })
 
             console.log(`Updating Gist (ID: ${gist.id})`)
