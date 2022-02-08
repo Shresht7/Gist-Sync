@@ -1,5 +1,5 @@
 export type File = {
-    contents: string
+    content: string
 }
 
 export type Gist = {
