@@ -1,0 +1,57 @@
+# =========================================
+#                   GIST-SYNC
+# -----------------------------------------
+# Sync files from your repo to GitHub Gists
+# =========================================
+
+name: Gist-Sync
+
+# Activation Events
+# =================
+
+on:
+  workflow_dispatch:  # When a workflow event is dispatched manually
+
+# Jobs
+# ====
+
+jobs:
+  Gist-Sync:
+    runs-on: ubuntu-latest
+    
+    name: Gist-Sync
+    steps:
+    
+      # Actions/Checkout
+      # ================
+
+      # Required for GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Execute Gist-Sync Action
+      # ========================
+
+      - name: Gist-Sync
+        uses: Shresht7/Gist-Sync@main
+        id: Gist-Sync
+
+        # Config Parameters
+        # -----------------
+
+        with:
+          dryrun: true    # Will not make any actual changes if true (default: true)
+          gists:
+            - fileName: 'Hello.txt'
+              gistID: '123'
+            - fileName: 'Bye.txt'
+              gistID: '456'
+            - fileName: 'YOLO.txt'
+              gistID: '789'
+
+
+        # Environment Variables
+        # ---------------------
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to make use of the GitHub API to modify labels and update .github/labels.yaml file
