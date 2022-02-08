@@ -1,10 +1,10 @@
 # =========================================
-#                   GIST-SYNC
+#         GIST-SYNC (EXPERIMENTAL)
 # -----------------------------------------
 # Sync files from your repo to GitHub Gists
 # =========================================
 
-name: Gist-Sync
+name: Gist-Sync-Experimental
 
 # Activation Events
 # =================
@@ -19,7 +19,7 @@ jobs:
   Gist-Sync:
     runs-on: ubuntu-latest
     
-    name: Gist-Sync
+    name: Gist-Sync-Experimental
     steps:
     
       # Actions/Checkout
@@ -32,15 +32,15 @@ jobs:
       # Execute Gist-Sync Action
       # ========================
 
-      - name: Gist-Sync
-        uses: Shresht7/Gist-Sync@main
-        id: Gist-Sync
+      - name: Gist-Sync-Experimental
+        uses: Shresht7/Gist-Sync@experimental
+        id: Gist-Sync-Experimental
 
         # Config Parameters
         # -----------------
 
         with:
-          dryrun: true          # Will not make any actual changes if true (default: true)
+          dryrun: false         # Will not make any actual changes if true (default: true)
           gists: 'gists.yaml'   # File containing the file-gist mapping
 
 
