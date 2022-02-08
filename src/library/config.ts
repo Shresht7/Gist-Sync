@@ -11,14 +11,11 @@ import { Gist } from '../types'
 //  CONFIG
 //  ======
 
-//  Dry-Run Toggle
-
+/** Dry-run toggle. No actual changes will be made while this is true. */
 export const isDryRun = core.getBooleanInput('dryrun') ?? false
 
 //  Read gists.yaml
-
-const workspaceURL = process.env.GITHUB_WORKSPACE || ''
-
+export const workspaceURL = process.env.GITHUB_WORKSPACE || ''
 const fileName = core.getInput('gists')
 let fileContents
 try {
@@ -27,4 +24,5 @@ try {
     fileContents = ''
 }
 
+/** Contents of the gists.yaml file. Maps files to gistIDs */
 export const gists: Gist[] = yaml.load(fileContents) as Gist[]

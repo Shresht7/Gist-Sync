@@ -2,25 +2,44 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import { octokit } from './library/octokit'
-import { isDryRun, gists } from './library/config'
-import { File } from './types'
+import * as path from 'node:path'
+import { isDryRun, gists, workspaceURL } from './library/config'
 
+//  ====
+//  MAIN
+//  ====
 
 async function run() {
     try {
         for (const gist of gists) {
-            const existingGist = await octokit.rest.gists.get({
-                gist_id: gist.gistID,
-            })
-            if (existingGist) {
-                console.log('Updating', gist.gistID, gist.files)
-                await octokit.rest.gists.update({
-                    gist_id: gist.gistID,
-                    files: gist.files
-                })
-            } else {
-                console.warn("Gist does not exist")
+
+            //  Check if the gist already exists
+            const existingGist = await octokit.rest.gists.get({ gist_id: gist.id })
+            if (!existingGist) {    //  Skip iteration if it doesn't
+                console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
+                continue
             }
+
+            //  Populate files object
+            let files: Record<string, { contents: string }> = {}
+            gist.files.forEach(pathName => {
+                const workspacePathName = path.join(workspaceURL, pathName)
+                const fileName = path.parse(workspacePathName).name
+                const contents = "Hello " + gist.id
+                files[fileName] = { contents }
+            })
+
+            console.log(`Updating Gist (ID: ${gist.id})`)
+
+            //  Skip if dry-run
+            if (isDryRun) { continue }
+
+            //  Update gist
+            await octokit.rest.gists.update({
+                gist_id: gist.id,
+                files
+            })
+
         }
     } catch (err) {
         let error = err as Error

@@ -40,12 +40,12 @@ jobs:
         # -----------------
 
         with:
-          dryrun: true        # Will not make any actual changes if true (default: true)
-          gists: 'gists.yaml' # File containing the file-gist mapping
+          dryrun: false         # Will not make any actual changes if true (default: true)
+          gists: 'gists.yaml'   # File containing the file-gist mapping
 
 
         # Environment Variables
         # ---------------------
 
         env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.

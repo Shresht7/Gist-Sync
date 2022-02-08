@@ -3,6 +3,6 @@
 //  ================
 
 export type Gist = {
-    gistID: string,
+    id: string,
     files: string[]
 }
