@@ -33,14 +33,14 @@ jobs:
       # ========================
 
       - name: Gist-Sync
-        uses: Shresht7/Gist-Sync@experimentation
+        uses: Shresht7/Gist-Sync@main
         id: Gist-Sync
 
         # Config Parameters
         # -----------------
 
         with:
-          dryrun: true    # Will not make any actual changes if true (default: true)
+          dryrun: true        # Will not make any actual changes if true (default: true)
           gists: 'gists.yaml' # File containing the file-gist mapping
 
 
@@ -48,5 +48,4 @@ jobs:
         # ---------------------
 
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
