@@ -59,11 +59,9 @@ function run() {
                 gist.files.forEach(pathName => {
                     const workspacePathName = path.join(config_1.workspaceURL, pathName);
                     const fileName = path.parse(workspacePathName).name;
-                    const contents = "Hello " + gist.id;
-                    files[fileName] = { contents };
+                    const content = "Hello " + gist.id;
+                    files[fileName] = { content };
                 });
-                console.log(gist.id, gist.files);
-                console.log(files);
                 console.log(`Updating Gist (ID: ${gist.id})`);
                 //  Skip if dry-run
                 if (config_1.isDryRun) {

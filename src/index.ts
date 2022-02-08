@@ -20,16 +20,13 @@ async function run() {
             if (!existingGist) { continue }    //  Skip iteration if it doesn't
 
             //  Populate files object
-            let files: Record<string, { contents: string }> = {}
+            let files: Record<string, { content: string }> = {}
             gist.files.forEach(pathName => {
                 const workspacePathName = path.join(workspaceURL, pathName)
                 const fileName = path.parse(workspacePathName).name
-                const contents = "Hello " + gist.id
-                files[fileName] = { contents }
+                const content = "Hello " + gist.id
+                files[fileName] = { content }
             })
-
-            console.log(gist.id, gist.files)
-            console.log(files)
 
             console.log(`Updating Gist (ID: ${gist.id})`)
 
