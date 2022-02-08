@@ -50,8 +50,7 @@ function run() {
                 console.log(gist.id, gist.files);
                 //  Check if the gist already exists
                 const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
-                    console.warn(err);
-                    // console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
+                    console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`);
                 });
                 if (!existingGist) {
                     continue;

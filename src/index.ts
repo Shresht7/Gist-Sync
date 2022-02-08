@@ -17,8 +17,7 @@ async function run() {
 
             //  Check if the gist already exists
             const existingGist = await octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
-                console.warn(err)
-                // console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
+                console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`)
             })
             if (!existingGist) { continue }    //  Skip iteration if it doesn't
 
