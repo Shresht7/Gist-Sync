@@ -23,7 +23,7 @@ async function run() {
             let files: Record<string, { content: string }> = {}
             gist.files.forEach(pathName => {
                 const workspacePathName = path.join(workspaceURL, pathName)
-                const fileName = path.parse(workspacePathName).name
+                const fileName = path.basename(workspacePathName)
                 const content = "Hello " + gist.id
                 files[fileName] = { content }
             })
