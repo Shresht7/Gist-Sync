@@ -11,8 +11,14 @@ import { Gist } from '../types'
 //  CONFIG
 //  ======
 
+//  DRY RUN
+//  -------
+
 /** Dry-run toggle. No actual changes will be made while this is true. */
 export const isDryRun = core.getBooleanInput('dryrun') ?? false
+
+//  GISTS
+//  -----
 
 //  Read gists.yaml
 export const workspaceURL = process.env.GITHUB_WORKSPACE || ''

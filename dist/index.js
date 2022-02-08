@@ -1,6 +1,186 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 9535:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//  Library
+const library_1 = __nccwpck_require__(2172);
+//  Helpers
+const helpers_1 = __nccwpck_require__(863);
+//  =========
+//  GIST SYNC
+//  =========
+/** Gist-Sync Action */
+function gistSync() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (const gist of library_1.gists) {
+            //  Check if the gist already exists
+            if (yield !(0, helpers_1.gistExists)(gist.id)) {
+                continue;
+            } //  Skip this gist if it doesn't
+            //  Populate files object
+            const files = (0, helpers_1.readFiles)(gist);
+            console.log(`Updating Gist (ID: ${gist.id})`);
+            //  Exit out of the loop early if dry-run is enabled
+            if (library_1.isDryRun) {
+                continue;
+            }
+            //  Update gist
+            yield library_1.octokit.rest.gists.update({
+                gist_id: gist.id,
+                files
+            });
+        }
+    });
+}
+//  -------------------
+exports["default"] = gistSync;
+//  -------------------
+
+
+/***/ }),
+
+/***/ 2848:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gistExists = void 0;
+//  Library
+const octokit_1 = __nccwpck_require__(3791);
+//  ===========
+//  GIST EXISTS
+//  ===========
+/**
+ * Returns a boolean indicating whether the gist with the given ID already exists
+ * @param gist_id Gist ID
+ */
+function gistExists(gist_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const existingGist = yield octokit_1.octokit.rest.gists
+            .get({ gist_id })
+            .catch(_ => {
+            console.warn(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`);
+        });
+        return !!existingGist;
+    });
+}
+exports.gistExists = gistExists;
+
+
+/***/ }),
+
+/***/ 863:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+//  ================
+//  HELPER FUNCTIONS
+//  ================
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(8953), exports);
+__exportStar(__nccwpck_require__(2848), exports);
+
+
+/***/ }),
+
+/***/ 8953:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.readFiles = void 0;
+//  Library
+const fs = __importStar(__nccwpck_require__(7561));
+const path = __importStar(__nccwpck_require__(9411));
+const config_1 = __nccwpck_require__(8562);
+//  ===============
+//  READ REPO FILES
+//  ===============
+/**
+ * Reads the files specified in the gist config and returns an octokit compatible object
+ * @param gist Gist object containing gistID and an array of files
+ * @returns files object required for octokit.rest.gists.update()
+ */
+function readFiles(gist) {
+    let files = {};
+    gist.files.forEach(pathName => {
+        //  Determine paths
+        const workspacePathName = path.join(config_1.workspaceURL, pathName);
+        const fileName = path.basename(workspacePathName);
+        //  Read files contents
+        let content;
+        try {
+            content = fs.readFileSync(workspacePathName, 'utf-8');
+        }
+        catch (_) {
+            console.error("Failed to read:", pathName);
+            return; //  Return from forEach if no file was found
+        }
+        //  Add to files object
+        files[fileName] = { content };
+    });
+    return files;
+}
+exports.readFiles = readFiles;
+
+
+/***/ }),
+
 /***/ 4822:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -34,45 +214,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
-const octokit_1 = __nccwpck_require__(3791);
-const path = __importStar(__nccwpck_require__(9411));
-const config_1 = __nccwpck_require__(8562);
+const gistSync_1 = __importDefault(__nccwpck_require__(9535));
 //  ====
 //  MAIN
 //  ====
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            for (const gist of config_1.gists) {
-                //  Check if the gist already exists
-                const existingGist = yield octokit_1.octokit.rest.gists.get({ gist_id: gist.id }).catch(err => {
-                    console.warn(`Gist (ID: ${gist.id}) does not exist. Please provide a valid gist ID.`);
-                });
-                if (!existingGist) {
-                    continue;
-                } //  Skip iteration if it doesn't
-                //  Populate files object
-                let files = {};
-                gist.files.forEach(pathName => {
-                    const workspacePathName = path.join(config_1.workspaceURL, pathName);
-                    const fileName = path.basename(workspacePathName);
-                    const content = "Hello " + gist.id;
-                    files[fileName] = { content };
-                });
-                console.log(`Updating Gist (ID: ${gist.id})`);
-                //  Skip if dry-run
-                if (config_1.isDryRun) {
-                    continue;
-                }
-                //  Update gist
-                yield octokit_1.octokit.rest.gists.update({
-                    gist_id: gist.id,
-                    files
-                });
-            }
+            yield (0, gistSync_1.default)();
         }
         catch (err) {
             let error = err;
@@ -120,8 +275,12 @@ const yaml = __importStar(__nccwpck_require__(1917));
 //  ======
 //  CONFIG
 //  ======
+//  DRY RUN
+//  -------
 /** Dry-run toggle. No actual changes will be made while this is true. */
 exports.isDryRun = (_a = core.getBooleanInput('dryrun')) !== null && _a !== void 0 ? _a : false;
+//  GISTS
+//  -----
 //  Read gists.yaml
 exports.workspaceURL = process.env.GITHUB_WORKSPACE || '';
 const fileName = core.getInput('gists');
@@ -134,6 +293,31 @@ catch (_) {
 }
 /** Contents of the gists.yaml file. Maps files to gistIDs */
 exports.gists = yaml.load(fileContents);
+
+
+/***/ }),
+
+/***/ 2172:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+//  =======
+//  LIBRARY
+//  =======
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(8562), exports);
+__exportStar(__nccwpck_require__(3791), exports);
 
 
 /***/ }),
