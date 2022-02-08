@@ -33,7 +33,7 @@ jobs:
       # ========================
 
       - name: Gist-Sync
-        uses: Shresht7/Gist-Sync@main
+        uses: Shresht7/Gist-Sync@experimentation
         id: Gist-Sync
 
         # Config Parameters
