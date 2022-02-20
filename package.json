@@ -1,7 +1,7 @@
 {
   "name": "gist-sync",
   "version": "0.1.0",
-  "description": "Sync files from your repo to gists",
+  "description": "GitHub Action to sync files from your repos to GitHub Gists",
   "main": "lib/index.js",
   "scripts": {
     "tsc": "tsc",
