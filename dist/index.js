@@ -1,7 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 9535:
+/***/ 5880:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -20,10 +20,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const library_1 = __nccwpck_require__(2172);
 //  Helpers
 const helpers_1 = __nccwpck_require__(863);
-//  =========
-//  GIST SYNC
-//  =========
-/** Gist-Sync Action */
+//  ===========
+//  GIST MIRROR
+//  ===========
+/** Gist-Mirror Action */
 function gistSync() {
     return __awaiter(this, void 0, void 0, function* () {
         for (const gist of library_1.gists) {
@@ -220,14 +220,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
-const gistSync_1 = __importDefault(__nccwpck_require__(9535));
+const gistMirror_1 = __importDefault(__nccwpck_require__(5880));
 //  ====
 //  MAIN
 //  ====
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, gistSync_1.default)();
+            yield (0, gistMirror_1.default)();
         }
         catch (err) {
             let error = err;

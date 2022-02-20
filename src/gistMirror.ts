@@ -4,11 +4,11 @@ import { octokit, isDryRun, gists } from './library'
 //  Helpers
 import { gistExists, readFiles } from './helpers'
 
-//  =========
-//  GIST SYNC
-//  =========
+//  ===========
+//  GIST MIRROR
+//  ===========
 
-/** Gist-Sync Action */
+/** Gist-Mirror Action */
 async function gistSync() {
     for (const gist of gists) {
 

@@ -1,6 +1,6 @@
 //  Library
 import * as core from '@actions/core'
-import gistSync from './gistSync'
+import gistMirror from './gistMirror'
 
 //  ====
 //  MAIN
@@ -8,7 +8,7 @@ import gistSync from './gistSync'
 
 async function run() {
     try {
-        await gistSync()
+        await gistMirror()
     } catch (err) {
         let error = err as Error
         core.setFailed(error.message)

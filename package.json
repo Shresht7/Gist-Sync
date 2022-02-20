@@ -1,7 +1,7 @@
 {
-  "name": "gist-sync",
+  "name": "gist-mirror",
   "version": "0.1.0",
-  "description": "GitHub Action to sync files from your repos to GitHub Gists",
+  "description": "GitHub Action to mirror files from your repository to GitHub Gists",
   "main": "lib/index.js",
   "scripts": {
     "tsc": "tsc",
@@ -12,12 +12,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shresht7/Gist-Sync.git"
+    "url": "git+https://github.com/Shresht7/Gist-Mirror.git"
   },
   "bugs": {
-    "url": "https://github.com/Shresht7/Gist-Sync/issues"
+    "url": "https://github.com/Shresht7/Gist-Mirror/issues"
   },
-  "homepage": "https://github.com/Shresht7/Gist-Sync#README",
+  "homepage": "https://github.com/Shresht7/Gist-Mirror#README",
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",

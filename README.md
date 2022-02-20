@@ -1,9 +1,9 @@
-# Gist-Sync
------------
+# Gist-Mirror
+-------------
 
 ⚠ Work-in-Progress ⚠
 
-Sync files from your repository to GitHub Gists.
+Mirror files from your repository to GitHub Gists.
 
 ## Workflow Setup
 
@@ -22,16 +22,16 @@ The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to t
 
 ### Workflow file
 
-Create the workflow file `.github/workflows/gist-sync.yaml`
+Create the workflow file `.github/workflows/gist-mirror.yaml`
 
 ```yaml
-# =========================================
-#                   GIST-SYNC
-# -----------------------------------------
-# Sync files from your repo to GitHub Gists
-# =========================================
+# ===========================================
+#                   GIST-MIRROR
+# -------------------------------------------
+# Mirror files from your repo to GitHub Gists
+# ===========================================
 
-name: Gist-Sync
+name: Gist-Mirror
 
 # Activation Events
 # =================
@@ -43,10 +43,10 @@ on:
 # ====
 
 jobs:
-  Gist-Sync:
+  Gist-Mirror:
     runs-on: ubuntu-latest
     
-    name: Gist-Sync
+    name: Gist-Mirror
     steps:
     
       # Actions/Checkout
@@ -56,12 +56,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Execute Gist-Sync Action
-      # ========================
+      # Execute Gist-Mirror Action
+      # ==========================
 
-      - name: Gist-Sync
-        uses: Shresht7/Gist-Sync@main
-        id: Gist-Sync
+      - name: Gist-Mirror
+        uses: Shresht7/Gist-Mirror@main
+        id: Gist-Mirror
 
         # Config Parameters
         # -----------------
@@ -83,7 +83,7 @@ jobs:
 
 #### dryrun
 
-Potential changes will only be logged if `dryrun` is `true`. For Gist-Sync to actually modify anything, you will have to set `dryrun` to `false`. (default: `true`)
+Potential changes will only be logged if `dryrun` is `true`. For Gist-Mirror to actually modify anything, you will have to set `dryrun` to `false`. (default: `true`)
 
 #### gists
 
@@ -103,12 +103,11 @@ Name of the config file that maps files to their corresponding gist IDs. (defaul
 - id: GIST_ID
   files:
     - README.md
-    - httpStatusCodes.ts
 ```
 
 ### Multiple Gists
 
-You can sync to multiple gists!
+You can mirror to multiple gists!
 
 ```yaml
 - id: GIST_ID_1

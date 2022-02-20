@@ -1,10 +1,10 @@
-# =========================================
-#         GIST-SYNC (EXPERIMENTAL)
-# -----------------------------------------
-# Sync files from your repo to GitHub Gists
-# =========================================
+# ===========================================
+#                 GIST-MIRROR
+# -------------------------------------------
+# Mirror files from your repo to GitHub Gists
+# ===========================================
 
-name: Gist-Sync-Experimental
+name: Gist-Mirror
 
 # Activation Events
 # =================
@@ -16,10 +16,10 @@ on:
 # ====
 
 jobs:
-  Gist-Sync:
+  Gist-Mirror:
     runs-on: ubuntu-latest
     
-    name: Gist-Sync-Experimental
+    name: Gist-Mirror
     steps:
     
       # Actions/Checkout
@@ -29,18 +29,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Execute Gist-Sync Action
+      # Execute Gist-Mirror Action
       # ========================
 
-      - name: Gist-Sync-Experimental
-        uses: Shresht7/Gist-Sync@experimental
-        id: Gist-Sync-Experimental
+      - name: Gist-Mirror
+        uses: Shresht7/Gist-Mirror@main
+        id: Gist-Mirror
 
         # Config Parameters
         # -----------------
 
         with:
-          dryrun: false         # Will not make any actual changes if true (default: true)
+          dryrun: true          # Will not make any actual changes if true (default: true)
           gists: 'gists.yaml'   # File containing the file-gist mapping
 
 

@@ -1,9 +1,9 @@
-# =========
-# GIST-SYNC
-# =========
+# ===========
+# GIST-MIRROR
+# ===========
 
-name: 'Gist-Sync'
-description: 'Sync files from your repo to gists'
+name: 'Gist-Mirror'
+description: 'Mirror files from your repo to gists'
 author: 'Shresht7'
 
 branding:
@@ -19,7 +19,7 @@ inputs:
   # --------------
 
   dryrun:
-    description: 'Dry-run toggle. Gist-Sync will not make any actual changes if true (default: true)'
+    description: 'Dry-run toggle. Gist-Mirror will not make any actual changes if true (default: true)'
     default: true
 
   # File-Gist map
