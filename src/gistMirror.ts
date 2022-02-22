@@ -1,5 +1,6 @@
 //  Library
 import { octokit, isDryRun, gists } from './library'
+import * as core from '@actions/core'
 
 //  Helpers
 import { gistExists, readFiles } from './helpers'
@@ -18,10 +19,10 @@ async function gistSync() {
         //  Populate files object
         const files = readFiles(gist)
 
-        console.log(`Updating Gist (ID: ${gist.id})`)
+        core.info(`Updating Gist (ID: ${gist.id})`)
 
         //  Exit out of the loop early if dry-run is enabled
-        if (isDryRun) { continue }
+        if (isDryRun) { core.warning('NOTE: This is a dry-run'); continue }
 
         //  Update gist
         await octokit.rest.gists.update({

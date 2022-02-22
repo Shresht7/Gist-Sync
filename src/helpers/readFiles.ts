@@ -1,6 +1,7 @@
 //  Library
 import * as fs from 'node:fs'
 import * as path from 'node:path'
+import * as core from '@actions/core'
 import { workspaceURL } from '../library/config'
 
 //  Type Definitions
@@ -31,7 +32,7 @@ export function readFiles(gist: Gist): Files {
         try {
             content = fs.readFileSync(workspacePathName, 'utf-8')
         } catch (_) {
-            console.error("Failed to read:", pathName)
+            core.error(`Failed to read: ${pathName}`)
             return  //  Return from forEach if no file was found
         }
 

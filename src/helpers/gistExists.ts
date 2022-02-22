@@ -1,5 +1,6 @@
 //  Library
 import { octokit } from '../library/octokit'
+import * as core from '@actions/core'
 
 //  ===========
 //  GIST EXISTS
@@ -13,7 +14,7 @@ export async function gistExists(gist_id: string): Promise<boolean> {
     const existingGist = await octokit.rest.gists
         .get({ gist_id })
         .catch(_ => {
-            console.warn(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`)
+            core.warning(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`)
         })
 
     return !!existingGist
