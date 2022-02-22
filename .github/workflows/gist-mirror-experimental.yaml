@@ -10,6 +10,12 @@ name: Gist-Mirror-Experimental
 # =================
 
 on:
+  push:
+    paths:
+      # Whenever a commit that affects the given files is pushed
+      - README.md
+      - ./github/workflows/gist-mirror.yaml
+  
   workflow_dispatch:  # When a workflow event is dispatched manually
 
 # Jobs
