@@ -90,6 +90,34 @@ Potential changes will only be logged if `dryrun` is `true`. For Gist-Mirror to 
 Name of the config file that maps files to their corresponding gist IDs. (default: `gists.yaml`)
 **Note**: This file should be placed directly in your `.github` folder in the root of your repo.
 
+### On Push Trigger
+
+You can use the on-push events to run the workflow automatically whenever commits are pushed to the remote repository.
+
+Trigger when commits are pushed to the main branch
+
+```yaml
+# ... Workflow file
+on:
+  push:
+    branches:
+      - main
+```
+
+or when commits affect certain files
+
+```yaml
+  on:
+    push:
+      paths:
+        - README.md
+        - httpStatusCodes.ts
+```
+
+Read more about [events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+
+You can use these event triggers to run the workflow automatically whenever a file (that is to be mirrored to a gist) is changed.
+
 ## Usage
 
 1. Create a [`GIST_TOKEN`](#gist-token) and setup the [workflow](#workflow-setup). Modify the workflow file as needed (e.g. disable `dryrun` by setting it to `false`).
