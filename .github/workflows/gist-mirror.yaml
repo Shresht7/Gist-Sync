@@ -46,7 +46,7 @@ jobs:
         # -----------------
 
         with:
-          dryrun: true          # Will not make any actual changes if true (default: true)
+          dryrun: false         # Will not make any actual changes if true (default: true)
           gists: 'gists.yaml'   # File containing the file-gist mapping
 
 
