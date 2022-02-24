@@ -1,8 +1,6 @@
 # Gist-Mirror
 -------------
 
-⚠ Work-in-Progress ⚠
-
 Mirror files from your repository to GitHub Gists.
 
 ## Workflow Setup
