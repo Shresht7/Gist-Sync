@@ -1,10 +1,10 @@
 # ===========================================
-#                 GIST-MIRROR
+#             GIST-MIRROR (TEST)
 # -------------------------------------------
 # Mirror files from your repo to GitHub Gists
 # ===========================================
 
-name: Gist-Mirror
+name: Gist-Mirror-Test
 
 # Activation Events
 # =================
@@ -16,7 +16,7 @@ on:
 # ====
 
 jobs:
-  Gist-Mirror:
+  Gist-Mirror-Test:
     runs-on: ubuntu-latest
     
     name: Gist-Mirror-Test
@@ -32,9 +32,9 @@ jobs:
       # Execute Gist-Mirror Action
       # ========================
 
-      - name: Gist-Mirror
+      - name: Gist-Mirror-Test
         uses: Shresht7/Gist-Mirror@main
-        id: Gist-Mirror
+        id: Gist-Mirror-Test
 
         # Config Parameters
         # -----------------
