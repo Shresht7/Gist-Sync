@@ -19,7 +19,7 @@ jobs:
   Gist-Mirror:
     runs-on: ubuntu-latest
     
-    name: Gist-Mirror
+    name: Gist-Mirror-Test
     steps:
     
       # Actions/Checkout
