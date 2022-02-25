@@ -1,0 +1,51 @@
+# ===========================================
+#                 GIST-MIRROR
+# -------------------------------------------
+# Mirror files from your repo to GitHub Gists
+# ===========================================
+
+name: Gist-Mirror
+
+# Activation Events
+# =================
+
+on:
+  workflow_dispatch:  # When a workflow event is dispatched manually
+
+# Jobs
+# ====
+
+jobs:
+  Gist-Mirror:
+    runs-on: ubuntu-latest
+    
+    name: Gist-Mirror
+    steps:
+    
+      # Actions/Checkout
+      # ================
+
+      # Required for GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Execute Gist-Mirror Action
+      # ========================
+
+      - name: Gist-Mirror
+        uses: Shresht7/Gist-Mirror@main
+        id: Gist-Mirror
+
+        # Config Parameters
+        # -----------------
+
+        with:
+          dryrun: true         # Will not make any actual changes if true (default: true)
+          gists: 'gists.yaml'   # File containing the file-gist mapping
+
+
+        # Environment Variables
+        # ---------------------
+
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.
