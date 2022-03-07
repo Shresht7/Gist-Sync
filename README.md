@@ -20,7 +20,7 @@ The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to t
 
 ### Workflow file
 
-Create the workflow file `.github/workflows/gist-mirror.yaml`
+Create the workflow file `.github/workflows/gist-mirror.yml`
 
 ```yaml
 # ===========================================
@@ -66,7 +66,7 @@ jobs:
 
         with:
           dryrun: true          # Will not make any actual changes if true (default: true)
-          gists: 'gists.yaml'   # File containing the file-gist mapping
+          gists: 'gists.yml'    # File containing the file-gist mapping
 
 
         # Environment Variables
@@ -85,7 +85,7 @@ Potential changes will only be logged if `dryrun` is `true`. For Gist-Mirror to 
 
 #### gists
 
-Name of the config file that maps files to their corresponding gist IDs. (default: `gists.yaml`)
+Name of the config file that maps files to their corresponding gist IDs. (default: `gists.yml`)
 **Note**: This file should be placed directly in your `.github` folder in the root of your repo.
 
 ### On Push Trigger
@@ -120,10 +120,10 @@ You can use these event triggers to run the workflow automatically whenever a fi
 
 1. Create a [`GIST_TOKEN`](#gist-token) and setup the [workflow](#workflow-setup). Modify the workflow file as needed (e.g. disable `dryrun` by setting it to `false`).
 2. Create a new [Gist](https://gist.github.com/) and note it's ID. **Note**: The workflow does not create new gists on its own, you have to provide an existing Gist ID.
-3. Create `gists.yaml` in the `.github` directory. This files maps Gist IDs to corresponding files.
+3. Create `gists.yml` in the `.github` directory. This files maps Gist IDs to corresponding files.
 4. Run the workflow 🚀
 
-### Example gists.yaml
+### Example gists.yml
 
 ```yaml
 - id: GIST_ID

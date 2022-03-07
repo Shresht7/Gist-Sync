@@ -41,7 +41,7 @@ jobs:
 
         with:
           dryrun: true         # Will not make any actual changes if true (default: true)
-          gists: 'gists.yaml'   # File containing the file-gist mapping
+          gists: 'gists.yml'   # File containing the file-gist mapping
 
 
         # Environment Variables

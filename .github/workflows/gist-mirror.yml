@@ -14,7 +14,7 @@ on:
     paths:
       # Whenever a commit that affects the given files is pushed
       - README.md
-      - ./github/workflows/gist-mirror.yaml
+      - ./github/workflows/gist-mirror.yml
   
   workflow_dispatch:  # When a workflow event is dispatched manually
 
@@ -47,7 +47,7 @@ jobs:
 
         with:
           dryrun: false         # Will not make any actual changes if true (default: true)
-          gists: 'gists.yaml'   # File containing the file-gist mapping
+          gists: 'gists.yml'    # File containing the file-gist mapping
 
 
         # Environment Variables

@@ -27,7 +27,7 @@ inputs:
 
   gists:
     description: 'File containing the array of GistID and corresponding files'
-    default: 'gists.yaml'
+    default: 'gists.yml'
 
 # Runs
 # ====

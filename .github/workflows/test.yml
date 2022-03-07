@@ -35,6 +35,6 @@ jobs:
       - uses: ./
         with:
           dryrun: true
-          gists: 'gists.yaml'
+          gists: 'gists.yml'
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
