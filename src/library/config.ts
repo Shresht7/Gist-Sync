@@ -32,3 +32,4 @@ try {
 
 /** Contents of the gists.yaml file. Maps files to gistIDs */
 export const gists: Gist[] = yaml.load(fileContents) as Gist[]
+console.log(gists)

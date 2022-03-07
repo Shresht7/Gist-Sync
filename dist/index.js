@@ -336,6 +336,7 @@ catch (_) {
 }
 /** Contents of the gists.yaml file. Maps files to gistIDs */
 exports.gists = yaml.load(fileContents);
+console.log(exports.gists);
 
 
 /***/ }),
