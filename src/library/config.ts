@@ -29,8 +29,6 @@ try {
 } catch (_) {
     fileContents = ''
 }
-console.log(workspaceURL, process.env.GITHUB_WORKSPACE)
-console.log(fileContents)
 
 /** Contents of the gists.yaml file. Maps files to gistIDs */
 export const gists: Gist[] = yaml.load(fileContents) as Gist[]
