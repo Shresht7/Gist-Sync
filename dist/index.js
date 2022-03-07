@@ -334,9 +334,10 @@ try {
 catch (_) {
     fileContents = '';
 }
+console.log(exports.workspaceURL, process.env.GITHUB_WORKSPACE);
+console.log(fileContents);
 /** Contents of the gists.yaml file. Maps files to gistIDs */
 exports.gists = yaml.load(fileContents);
-console.log(exports.gists);
 
 
 /***/ }),
