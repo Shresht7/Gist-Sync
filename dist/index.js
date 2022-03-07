@@ -6,6 +6,25 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -17,6 +36,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 //  Library
+const core = __importStar(__nccwpck_require__(2186));
 const library_1 = __nccwpck_require__(2172);
 //  Helpers
 const helpers_1 = __nccwpck_require__(863);
@@ -27,15 +47,16 @@ const helpers_1 = __nccwpck_require__(863);
 function gistSync() {
     return __awaiter(this, void 0, void 0, function* () {
         for (const gist of library_1.gists) {
-            //  Check if the gist already exists
+            //  Check if the gist already exists...
             if (yield !(0, helpers_1.gistExists)(gist.id)) {
                 continue;
-            } //  Skip this gist if it doesn't
+            } //  ...Skip this gist if it doesn't
             //  Populate files object
             const files = (0, helpers_1.readFiles)(gist);
-            console.log(`Updating Gist (ID: ${gist.id})`);
+            core.info(`Updating Gist (ID: ${gist.id})`);
             //  Exit out of the loop early if dry-run is enabled
             if (library_1.isDryRun) {
+                core.warning('NOTE: This is a dry-run');
                 continue;
             }
             //  Update gist
@@ -58,6 +79,25 @@ exports["default"] = gistSync;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -71,6 +111,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.gistExists = void 0;
 //  Library
 const octokit_1 = __nccwpck_require__(3791);
+const core = __importStar(__nccwpck_require__(2186));
 //  ===========
 //  GIST EXISTS
 //  ===========
@@ -83,7 +124,7 @@ function gistExists(gist_id) {
         const existingGist = yield octokit_1.octokit.rest.gists
             .get({ gist_id })
             .catch(_ => {
-            console.warn(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`);
+            core.warning(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`);
         });
         return !!existingGist;
     });
@@ -147,6 +188,7 @@ exports.readFiles = void 0;
 //  Library
 const fs = __importStar(__nccwpck_require__(7561));
 const path = __importStar(__nccwpck_require__(9411));
+const core = __importStar(__nccwpck_require__(2186));
 const config_1 = __nccwpck_require__(8562);
 //  ===============
 //  READ REPO FILES
@@ -168,7 +210,7 @@ function readFiles(gist) {
             content = fs.readFileSync(workspacePathName, 'utf-8');
         }
         catch (_) {
-            console.error("Failed to read:", pathName);
+            core.error(`Failed to read: ${pathName}`);
             return; //  Return from forEach if no file was found
         }
         //  Add to files object
@@ -231,7 +273,8 @@ function run() {
         }
         catch (err) {
             let error = err;
-            core.setFailed(error.message);
+            core.setFailed(error);
+            process.exit(1);
         }
     });
 }
