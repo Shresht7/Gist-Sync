@@ -1,6 +1,6 @@
 //  Library
-import { octokit, isDryRun, gists } from './library'
 import * as core from '@actions/core'
+import { octokit, isDryRun, gists } from './library'
 
 //  Helpers
 import { gistExists, readFiles } from './helpers'
@@ -13,8 +13,8 @@ import { gistExists, readFiles } from './helpers'
 async function gistSync() {
     for (const gist of gists) {
 
-        //  Check if the gist already exists
-        if (await !gistExists(gist.id)) { continue }    //  Skip this gist if it doesn't
+        //  Check if the gist already exists...
+        if (await !gistExists(gist.id)) { continue }    //  ...Skip this gist if it doesn't
 
         //  Populate files object
         const files = readFiles(gist)

@@ -11,7 +11,8 @@ async function run() {
         await gistMirror()
     } catch (err) {
         let error = err as Error
-        core.setFailed(error.message)
+        core.setFailed(error)
+        process.exit(1)
     }
 }
 
