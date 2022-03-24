@@ -12,22 +12,22 @@ import { gistExists, readFiles } from './helpers'
 
 /** Gist-Mirror Action */
 async function action() {
-    for (const gist of gists) {
+    for (const [id, _files] of Object.entries(gists)) {
 
         //  Check if the gist already exists...
-        if (await !gistExists(gist.id)) { continue }    //  ...Skip this gist if it doesn't
+        if (await !gistExists(id)) { continue }    //  ...Skip this gist if it doesn't
 
         //  Populate files object
-        const files = readFiles(gist)
+        const files = readFiles(_files)
 
-        core.info(`Updating Gist (ID: ${gist.id})`)
+        core.info(`Updating Gist (ID: ${id})`)
 
         //  Exit out of the loop early if dry-run is enabled
         if (isDryRun) { core.warning('NOTE: This is a dry-run'); continue }
 
         //  Update gist
         await octokit.rest.gists.update({
-            gist_id: gist.id,
+            gist_id: id,
             files
         })
 

@@ -4,9 +4,6 @@ import * as path from 'node:path'
 import * as core from '@actions/core'
 import { workspace } from '../config'
 
-//  Type Definitions
-import { Gist } from '../types'
-
 /** Maps fileNames to fileContents */
 type Files = Record<string, { content: string }>
 
@@ -19,10 +16,10 @@ type Files = Record<string, { content: string }>
  * @param gist Gist object containing gistID and an array of files
  * @returns files object required for octokit.rest.gists.update()
  */
-export function readFiles(gist: Gist): Files {
-    let files: Files = {}
+export function readFiles(files: string[]): Files {
+    let result: Files = {}
 
-    gist.files.forEach(pathName => {
+    files.forEach(pathName => {
         //  Determine paths
         const workspacePathName = path.join(workspace, pathName)
         const fileName = path.basename(workspacePathName)
@@ -37,8 +34,8 @@ export function readFiles(gist: Gist): Files {
         }
 
         //  Add to files object
-        files[fileName] = { content }
+        result[fileName] = { content }
     })
 
-    return files
+    return result
 }

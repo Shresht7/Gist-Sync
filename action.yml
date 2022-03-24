@@ -30,6 +30,5 @@ inputs:
   # -------------
 
   gists:
-    description: "File containing the array of GistID and corresponding files"
-    default: "gists.yml"
+    description: "YAML mapping GistIDs to their corresponding files. If not a YAML string, will assume this input to be a multiline list of files containing YAML configs"
     required: true
