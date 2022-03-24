@@ -38,6 +38,15 @@ jobs:
         id: action-metadata
         uses: Shresht7/action-metadata@v1
 
+      # Read Workflow File 📄
+      # =====================
+
+      - name: read workflow file
+        id: read-file
+        uses: Shresht7/read-file-action@v1
+        with:
+          path: .github/workflows/gist-mirror.yml
+
       # Markdown Slots 📋
       # =================
 
@@ -52,6 +61,8 @@ jobs:
               content: ${{ steps.action-metadata.outputs.inputs-md-table }}
             - slot: outputs
               content: ${{ steps.action-metadata.outputs.outputs-md-table }}
+            - slot: workflow-example
+              content: ${{ steps.read-file.outputs.contents }}
 
       # Push Changes 🌎
       # ===============
