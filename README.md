@@ -122,7 +122,7 @@ To see a working example of this action, see this [workflow](./.github/workflows
     or click here
   </summary>
 
-<!-- slot: workflow-example  -->
+<!-- slot: workflow-example | prepend ```yaml, append: ``` -->
 # ===========================================
 #                 GIST-MIRROR
 # -------------------------------------------

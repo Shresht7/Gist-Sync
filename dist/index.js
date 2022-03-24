@@ -12953,7 +12953,7 @@ exports.outputs = exports.inputs = void 0;
 //  ========
 /** Metadata inputs */
 exports.inputs = {
-    isDryRun: 'dry-run',
+    isDryRun: 'dryrun',
     gists: 'gists'
 };
 /** Metadata outputs */

@@ -18,7 +18,7 @@ on:
 
   workflow_dispatch: # When a workflow event is dispatched manually
     inputs:
-      dry-run:
+      dryrun:
         description: No actual changes will be made in a dry-run
         default: "false"
         required: false
@@ -50,7 +50,7 @@ jobs:
         # -----------------
 
         with:
-          dry-run: ${{ github.event.inputs.dry-run }}
+          dryrun: ${{ github.event.inputs.dryrun }}
           gists: |
             bed31c34989a8ee63ec0dc4981a74c9a:
               - README.md

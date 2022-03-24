@@ -22,7 +22,7 @@ inputs:
     description: YAML mapping GistIDs to their corresponding files
     required: true
 
-  dry-run:
-    description: No actual changes will be made if dry-run is enabled
+  dryrun:
+    description: No actual changes will be made if dryrun is enabled
     default: "true"
     required: false
