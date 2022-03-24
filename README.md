@@ -32,7 +32,24 @@ The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to t
       GIST_TOKEN: ${{ secret.[SECRET_NAME] }}
 ```
 
-#### 2. Workflow
+#### 2. Gist
+
+Note the `ID` of the gist you want to target. Create an new [Gist](https://gist.github.com/) if required.
+
+> The `ID` is visible in the gist's url. `https://gist.github.com/<user>/<ID>`
+
+The workflow takes a YAML input mapping gist-IDs to their corresponding files. e.g. to upload `README.md` to a gist with id `xyz123` you will provide the following input.
+
+```yaml
+with:
+  gists: |
+    xyz123:
+      - README.md
+```
+
+> Note the `|`. It signifies that the input is a multiline string and not part of the workflow yaml.
+
+#### 3. Workflow
 
 Use this action in a workflow.
 
@@ -40,22 +57,14 @@ Use this action in a workflow.
 - name: Gist-Mirror
   id: Gist-Mirror
   uses: Shresht7/Gist-Mirror@v1
-
-  # Config Parameters
-  # -----------------
-
+  env:
+    GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
   with:
     dryrun: false
     gists: |
       bed31c34989a8ee63ec0dc4981a74c9a:
         - README.md
         - .github/workflows/gist-mirror.yml
-
-  # Environment Variables
-  # ---------------------
-
-  env:
-    GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.
 ```
 
 ### On Push Trigger
@@ -85,7 +94,7 @@ Read more about [events that trigger workflows](https://docs.github.com/en/actio
 
 You can use these event triggers to run the workflow automatically whenever a file (that is to be mirrored to a gist) is changed.
 
-To see a working example, see [Workflow-Example](#-workflow-examples).
+To see a working example, see [Workflow Example](#-workflow-examples).
 
 ## 📋 Inputs
 
@@ -98,13 +107,13 @@ To see a working example, see [Workflow-Example](#-workflow-examples).
 
 ### gists
 
-The `gists` input takes in a YAML configuration mapping GistIDs to their corresponding files. All files specified in the configs will be pushed to their corresponding gists. You can specify multiple gist-ids and files.
+The `gists` input takes in a YAML configuration mapping gist-ID to their corresponding files. You can specify multiple gist-IDs and multiple files.
 
 ```yaml
-<gist_id_1>:
+gist_id_1:
   - README.md
 
-<gist_id_2>:
+gist_id_2:
   - package.json
   - package-lock.json
   - .gitignore
@@ -114,13 +123,15 @@ The `gists` input takes in a YAML configuration mapping GistIDs to their corresp
 
 ## 📃 Workflow Example
 
-To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is generated [Gist]([./](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a)).
+To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is the generated [Gist]([./](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a)).
 
 <details>
 
   <summary>
-    or click here
+    click here to show the workflow
   </summary>
+
+  <br />
 
 <!-- slot: workflow-example  prepend ```yaml, append: ``` -->
 ```yaml
