@@ -20,7 +20,7 @@ branding:
 inputs:
   gists:
     description: YAML mapping GistIDs to their corresponding files
-    required: false
+    required: true
 
   dry-run:
     description: No actual changes will be made if dry-run is enabled
