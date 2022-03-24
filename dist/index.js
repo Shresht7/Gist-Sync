@@ -12458,7 +12458,8 @@ function action() {
     return __awaiter(this, void 0, void 0, function* () {
         for (const [id, filePaths] of Object.entries(config_1.gists)) {
             //  Check if the gist already exists...
-            if (yield !(0, helpers_1.gistExists)(id)) {
+            const exists = yield (0, helpers_1.gistExists)(id);
+            if (!exists) {
                 continue;
             } //  ...Skip this gist if it doesn't
             //  Populate files object
@@ -12466,7 +12467,7 @@ function action() {
             core.info(`Updating Gist (ID: ${id})`);
             //  Exit out of the loop early if dry-run is enabled
             if (config_1.isDryRun) {
-                core.warning('NOTE: This is a dry-run');
+                core.warning('Note: This is a dry-run');
                 continue;
             }
             //  Update gist
@@ -12519,7 +12520,6 @@ const core = __importStar(__nccwpck_require__(2186));
 const yaml = __importStar(__nccwpck_require__(1917));
 //  Helpers
 const metadata_1 = __nccwpck_require__(3252);
-const helpers_1 = __nccwpck_require__(3202);
 if (!process.env.GITHUB_WORKSPACE) {
     throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable');
 }
@@ -12530,30 +12530,13 @@ exports.workspace = process.env.GITHUB_WORKSPACE;
 //  ======
 //  DRY RUN
 //  -------
-/** Dry-run toggle. No actual changes will be made while this is true. */
-exports.isDryRun = core.getBooleanInput(metadata_1.inputs.isDryRun);
+/** Dry-run toggle. No actual changes will be made if this is true */
+exports.isDryRun = core.getBooleanInput(metadata_1.inputs.isDryRun) || false;
 //  GISTS
 //  -----
-/** Gists Config. Can be a YAML string mapping gistIDs to files. Or a list of files containing such yaml strings */
-const gistsInput = core.getMultilineInput(metadata_1.inputs.gists);
-/** Temporary variable to track Gists */
-let _gists = {};
-try {
-    //  Try to parse input as YAML. If it succeeds, the input is the config.
-    _gists = yaml.load(gistsInput.join('\n'));
-}
-catch (err) {
-    //  Otherwise, the input is treated as a list of files containing the yaml config
-    for (const files of gistsInput) {
-        //  Read and parse all files into a single config
-        (0, helpers_1.readFile)(files)
-            .then(contents => {
-            const data = yaml.load(contents);
-            _gists = Object.assign(Object.assign({}, _gists), data);
-        });
-    }
-}
-exports.gists = _gists;
+/** Gists Config. YAML mapping GistIDs to their corresponding files */
+const gistsInput = core.getMultilineInput(metadata_1.inputs.gists, { required: true }).join('\n');
+exports.gists = yaml.load(gistsInput);
 
 
 /***/ }),
@@ -12872,8 +12855,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.octokit = void 0;
-//  Library
-const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 //  =======
 //  OCTOKIT
@@ -12881,7 +12862,7 @@ const github = __importStar(__nccwpck_require__(5438));
 /** Personal-Access-Token with gist permissions. */
 const GIST_TOKEN = process.env.GIST_TOKEN || '';
 if (!GIST_TOKEN) {
-    core.setFailed('Invalid GIST_TOKEN');
+    throw new Error('Invalid GIST_TOKEN');
 }
 //  ------------------------------------------------
 exports.octokit = github.getOctokit(GIST_TOKEN);
@@ -12933,7 +12914,7 @@ const config_1 = __nccwpck_require__(6373);
  * @returns files object required for octokit.rest.gists.update()
  */
 function readFiles(filePaths) {
-    let result = {};
+    let files = {};
     filePaths.forEach(filePath => {
         //  Determine paths
         const workspacePathName = path.join(config_1.workspace, filePath);
@@ -12948,9 +12929,9 @@ function readFiles(filePaths) {
             return; //  Return from forEach if no file was found
         }
         //  Add to files object
-        result[fileName] = { content };
+        files[fileName] = { content };
     });
-    return result;
+    return files;
 }
 exports.readFiles = readFiles;
 
