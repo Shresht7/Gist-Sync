@@ -90,10 +90,10 @@ To see a working example, see [Workflow-Example](#-workflow-examples).
 ## 📋 Inputs
 
 <!-- slot: inputs  -->
-| Input     | Description                                          |     Default | Required |
-| :-------- | :--------------------------------------------------- | ----------: | :------: |
-| `gists`   | YAML mapping GistIDs to their corresponding files    | `undefined` |          |
-| `dry-run` | No actual changes will be made if dry-run is enabled |      `true` |          |
+| Input     | Description                                          |     Default |   Required   |
+| :-------- | :--------------------------------------------------- | ----------: | :----------: |
+| `gists`   | YAML mapping GistIDs to their corresponding files    | `undefined` | **required** |
+| `dry-run` | No actual changes will be made if dry-run is enabled |      `true` |              |
 <!-- /slot -->
 
 ### gists
@@ -122,7 +122,71 @@ To see a working example of this action, see this [workflow](./.github/workflows
     or click here
   </summary>
 
-<!-- slot: workflow-example -->
+<!-- slot: workflow-example  -->
+# ===========================================
+#                 GIST-MIRROR
+# -------------------------------------------
+# Mirror files from your repo to GitHub Gists
+# ===========================================
+
+name: Gist-Mirror
+
+# Activation Events
+# =================
+
+on:
+  push:
+    paths:
+      # Whenever a commit that affects the given files is pushed
+      - README.md
+      - ./github/workflows/gist-mirror.yml
+
+  workflow_dispatch: # When a workflow event is dispatched manually
+    inputs:
+      dry-run:
+        description: No actual changes will be made in a dry-run
+        default: "false"
+        required: false
+
+# Jobs
+# ====
+
+jobs:
+  Gist-Mirror:
+    runs-on: ubuntu-latest
+
+    name: Gist-Mirror
+    steps:
+      # Actions/Checkout
+      # ================
+
+      # Required for GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Execute Gist-Mirror Action
+      # ========================
+
+      - name: Gist-Mirror
+        uses: Shresht7/Gist-Mirror@main
+        id: Gist-Mirror
+
+        # Config Parameters
+        # -----------------
+
+        with:
+          dry-run: ${{ github.event.inputs.dry-run }}
+          gists: |
+            bed31c34989a8ee63ec0dc4981a74c9a:
+              - README.md
+              - .github/workflows/gist-mirror.yml
+
+        # Environment Variables
+        # ---------------------
+
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.
+
 <!-- /slot -->
 
 </details>
