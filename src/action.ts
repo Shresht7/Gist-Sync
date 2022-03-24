@@ -1,10 +1,8 @@
 //  Library
 import * as core from '@actions/core'
-import { octokit } from './library'
+import { octokit, readFiles } from './library'
 import { isDryRun, gists } from './config'
-
-//  Helpers
-import { gistExists, readFiles } from './helpers'
+import { gistExists } from './helpers'
 
 //  ===========
 //  GIST MIRROR

@@ -18,17 +18,11 @@ branding:
 # ======
 
 inputs:
-  # Dry-run toggle
-  # --------------
-
-  dryrun:
-    description: "Dry-run toggle. Gist-Mirror will not make any actual changes if true (default: `true`)"
-    default: "true"
+  gists:
+    description: YAML mapping GistIDs to their corresponding files
     required: false
 
-  # File-Gist map
-  # -------------
-
-  gists:
-    description: "YAML mapping GistIDs to their corresponding files. If not a YAML string, will assume this input to be a multiline list of files containing YAML configs"
-    required: true
+  dry-run:
+    description: No actual changes will be made if dry-run is enabled
+    default: "true"
+    required: false

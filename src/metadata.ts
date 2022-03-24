@@ -8,7 +8,7 @@
 
 /** Metadata inputs */
 export const inputs = {
-    isDryRun: 'dryrun',
+    isDryRun: 'dry-run',
     gists: 'gists'
 } as const
 
