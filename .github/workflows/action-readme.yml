@@ -62,7 +62,7 @@ jobs:
             - slot: outputs
               content: ${{ steps.action-metadata.outputs.outputs-md-table }}
             - slot: workflow-example
-              content: ${{ steps.read-file.outputs.contents }}
+              content: ${{ toJSON(steps.read-file.outputs.contents) }}
 
       # Push Changes 🌎
       # ===============
