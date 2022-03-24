@@ -1,446 +1,6 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 5880:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-//  Library
-const core = __importStar(__nccwpck_require__(2186));
-const library_1 = __nccwpck_require__(2172);
-//  Helpers
-const helpers_1 = __nccwpck_require__(863);
-//  ===========
-//  GIST MIRROR
-//  ===========
-/** Gist-Mirror Action */
-function gistSync() {
-    return __awaiter(this, void 0, void 0, function* () {
-        for (const gist of library_1.gists) {
-            //  Check if the gist already exists...
-            if (yield !(0, helpers_1.gistExists)(gist.id)) {
-                continue;
-            } //  ...Skip this gist if it doesn't
-            //  Populate files object
-            const files = (0, helpers_1.readFiles)(gist);
-            core.info(`Updating Gist (ID: ${gist.id})`);
-            //  Exit out of the loop early if dry-run is enabled
-            if (library_1.isDryRun) {
-                core.warning('NOTE: This is a dry-run');
-                continue;
-            }
-            //  Update gist
-            yield library_1.octokit.rest.gists.update({
-                gist_id: gist.id,
-                files
-            });
-        }
-    });
-}
-//  -------------------
-exports["default"] = gistSync;
-//  -------------------
-
-
-/***/ }),
-
-/***/ 2848:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gistExists = void 0;
-//  Library
-const octokit_1 = __nccwpck_require__(3791);
-const core = __importStar(__nccwpck_require__(2186));
-//  ===========
-//  GIST EXISTS
-//  ===========
-/**
- * Returns a boolean indicating whether the gist with the given ID already exists
- * @param gist_id Gist ID
- */
-function gistExists(gist_id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const existingGist = yield octokit_1.octokit.rest.gists
-            .get({ gist_id })
-            .catch(_ => {
-            core.warning(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`);
-        });
-        return !!existingGist;
-    });
-}
-exports.gistExists = gistExists;
-
-
-/***/ }),
-
-/***/ 863:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-//  ================
-//  HELPER FUNCTIONS
-//  ================
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__nccwpck_require__(8953), exports);
-__exportStar(__nccwpck_require__(2848), exports);
-
-
-/***/ }),
-
-/***/ 8953:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.readFiles = void 0;
-//  Library
-const fs = __importStar(__nccwpck_require__(7561));
-const path = __importStar(__nccwpck_require__(9411));
-const core = __importStar(__nccwpck_require__(2186));
-const config_1 = __nccwpck_require__(8562);
-//  ===============
-//  READ REPO FILES
-//  ===============
-/**
- * Reads the files specified in the gist config and returns an octokit compatible object
- * @param gist Gist object containing gistID and an array of files
- * @returns files object required for octokit.rest.gists.update()
- */
-function readFiles(gist) {
-    let files = {};
-    gist.files.forEach(pathName => {
-        //  Determine paths
-        const workspacePathName = path.join(config_1.workspaceURL, pathName);
-        const fileName = path.basename(workspacePathName);
-        //  Read files contents
-        let content;
-        try {
-            content = fs.readFileSync(workspacePathName, 'utf-8');
-        }
-        catch (_) {
-            core.error(`Failed to read: ${pathName}`);
-            return; //  Return from forEach if no file was found
-        }
-        //  Add to files object
-        files[fileName] = { content };
-    });
-    return files;
-}
-exports.readFiles = readFiles;
-
-
-/***/ }),
-
-/***/ 4822:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-//  Library
-const core = __importStar(__nccwpck_require__(2186));
-const gistMirror_1 = __importDefault(__nccwpck_require__(5880));
-//  ====
-//  MAIN
-//  ====
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield (0, gistMirror_1.default)();
-        }
-        catch (err) {
-            let error = err;
-            core.setFailed(error);
-            process.exit(1);
-        }
-    });
-}
-run();
-
-
-/***/ }),
-
-/***/ 8562:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gists = exports.workspaceURL = exports.isDryRun = void 0;
-//  Library
-const core = __importStar(__nccwpck_require__(2186));
-const fs = __importStar(__nccwpck_require__(7561));
-const path = __importStar(__nccwpck_require__(9411));
-const yaml = __importStar(__nccwpck_require__(1917));
-//  ======
-//  CONFIG
-//  ======
-//  DRY RUN
-//  -------
-/** Dry-run toggle. No actual changes will be made while this is true. */
-exports.isDryRun = (_a = core.getBooleanInput('dryrun')) !== null && _a !== void 0 ? _a : false;
-//  GISTS
-//  -----
-//  Read gists.yaml
-exports.workspaceURL = process.env.GITHUB_WORKSPACE || '';
-const fileName = core.getInput('gists');
-let fileContents;
-try {
-    fileContents = fs.readFileSync(path.join(exports.workspaceURL, '.github', fileName), 'utf-8');
-}
-catch (_) {
-    fileContents = '';
-}
-/** Contents of the gists.yaml file. Maps files to gistIDs */
-exports.gists = yaml.load(fileContents);
-
-
-/***/ }),
-
-/***/ 2172:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-//  =======
-//  LIBRARY
-//  =======
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__nccwpck_require__(8562), exports);
-__exportStar(__nccwpck_require__(3791), exports);
-
-
-/***/ }),
-
-/***/ 3791:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.octokit = void 0;
-//  Library
-const core = __importStar(__nccwpck_require__(2186));
-const github = __importStar(__nccwpck_require__(5438));
-//  =======
-//  OCTOKIT
-//  =======
-/** Personal-Access-Token with gist permissions. */
-const GIST_TOKEN = process.env.GIST_TOKEN || '';
-if (!GIST_TOKEN) {
-    core.setFailed('Invalid GIST_TOKEN');
-}
-//  ------------------------------------------------
-exports.octokit = github.getOctokit(GIST_TOKEN);
-//  ------------------------------------------------
-
-
-/***/ }),
-
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -4498,7 +4058,7 @@ function renamed(from, to) {
 
 module.exports.Type = __nccwpck_require__(6073);
 module.exports.Schema = __nccwpck_require__(1082);
-module.exports.FAILSAFE_SCHEMA = __nccwpck_require__(4607);
+module.exports.FAILSAFE_SCHEMA = __nccwpck_require__(8562);
 module.exports.JSON_SCHEMA = __nccwpck_require__(1035);
 module.exports.CORE_SCHEMA = __nccwpck_require__(2011);
 module.exports.DEFAULT_SCHEMA = __nccwpck_require__(8759);
@@ -7548,7 +7108,7 @@ module.exports = (__nccwpck_require__(2011).extend)({
 
 /***/ }),
 
-/***/ 4607:
+/***/ 8562:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -7588,7 +7148,7 @@ module.exports = new Schema({
 
 
 
-module.exports = (__nccwpck_require__(4607).extend)({
+module.exports = (__nccwpck_require__(8562).extend)({
   implicit: [
     __nccwpck_require__(721),
     __nccwpck_require__(4993),
@@ -12847,6 +12407,580 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 7672:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//  Library
+const core = __importStar(__nccwpck_require__(2186));
+const library_1 = __nccwpck_require__(4048);
+const config_1 = __nccwpck_require__(6373);
+const helpers_1 = __nccwpck_require__(3202);
+//  ===========
+//  GIST MIRROR
+//  ===========
+/** Gist-Mirror Action */
+function action() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (const [id, filePaths] of Object.entries(config_1.gists)) {
+            //  Check if the gist already exists...
+            if (yield !(0, helpers_1.gistExists)(id)) {
+                continue;
+            } //  ...Skip this gist if it doesn't
+            //  Populate files object
+            const files = (0, library_1.readFiles)(filePaths);
+            core.info(`Updating Gist (ID: ${id})`);
+            //  Exit out of the loop early if dry-run is enabled
+            if (config_1.isDryRun) {
+                core.warning('NOTE: This is a dry-run');
+                continue;
+            }
+            //  Update gist
+            yield library_1.octokit.rest.gists.update({
+                gist_id: id,
+                files
+            });
+        }
+    });
+}
+//  -----------------
+exports["default"] = action;
+//  -----------------
+
+
+/***/ }),
+
+/***/ 6373:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gists = exports.isDryRun = exports.workspace = void 0;
+//  Library
+const core = __importStar(__nccwpck_require__(2186));
+const yaml = __importStar(__nccwpck_require__(1917));
+//  Helpers
+const metadata_1 = __nccwpck_require__(3252);
+const helpers_1 = __nccwpck_require__(3202);
+if (!process.env.GITHUB_WORKSPACE) {
+    throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable');
+}
+/** GitHub Workspace */
+exports.workspace = process.env.GITHUB_WORKSPACE;
+//  ======
+//  CONFIG
+//  ======
+//  DRY RUN
+//  -------
+/** Dry-run toggle. No actual changes will be made while this is true. */
+exports.isDryRun = core.getBooleanInput(metadata_1.inputs.isDryRun);
+//  GISTS
+//  -----
+/** Gists Config. Can be a YAML string mapping gistIDs to files. Or a list of files containing such yaml strings */
+const gistsInput = core.getMultilineInput(metadata_1.inputs.gists);
+/** Temporary variable to track Gists */
+let _gists = {};
+try {
+    //  Try to parse input as YAML. If it succeeds, the input is the config.
+    _gists = yaml.load(gistsInput.join('\n'));
+}
+catch (err) {
+    //  Otherwise, the input is treated as a list of files containing the yaml config
+    for (const files of gistsInput) {
+        //  Read and parse all files into a single config
+        (0, helpers_1.readFile)(files)
+            .then(contents => {
+            const data = yaml.load(contents);
+            _gists = Object.assign(Object.assign({}, _gists), data);
+        });
+    }
+}
+exports.gists = _gists;
+
+
+/***/ }),
+
+/***/ 2805:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gistExists = void 0;
+//  Library
+const octokit_1 = __nccwpck_require__(9698);
+const core = __importStar(__nccwpck_require__(2186));
+//  ===========
+//  GIST EXISTS
+//  ===========
+/**
+ * Returns a boolean indicating whether the gist with the given ID already exists
+ * @param gist_id Gist ID
+ */
+function gistExists(gist_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const existingGist = yield octokit_1.octokit.rest.gists
+            .get({ gist_id })
+            .catch(_ => {
+            core.warning(`Gist (ID: ${gist_id}) does not exist. Please provide a valid gist ID.`);
+        });
+        return !!existingGist;
+    });
+}
+exports.gistExists = gistExists;
+
+
+/***/ }),
+
+/***/ 3202:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+//  ================
+//  HELPER FUNCTIONS
+//  ================
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(2805), exports);
+__exportStar(__nccwpck_require__(4127), exports);
+__exportStar(__nccwpck_require__(6697), exports);
+
+
+/***/ }),
+
+/***/ 4127:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isURL = void 0;
+/** Determine if the str is a valid URL */
+function isURL(str) {
+    try {
+        new URL(str);
+        return true;
+    }
+    catch (_) {
+        return false;
+    }
+}
+exports.isURL = isURL;
+
+
+/***/ }),
+
+/***/ 6697:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.readFile = void 0;
+//  Library
+const fs = __importStar(__nccwpck_require__(7561));
+const path = __importStar(__nccwpck_require__(9411));
+const isURL_1 = __nccwpck_require__(4127);
+const config_1 = __nccwpck_require__(6373);
+/** Read file from the given path or url */
+function readFile(src) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (0, isURL_1.isURL)(src)
+            ? readFromURL(src)
+            : readFromFile(src);
+    });
+}
+exports.readFile = readFile;
+/** Read from the given URL */
+function readFromURL(url) {
+    return fetch(url)
+        .then(res => {
+        if (res.ok) {
+            return res.text();
+        }
+        else {
+            throw new Error(`Failed to read from ${url}`);
+        }
+    });
+}
+/** Read from the given path */
+function readFromFile(src) {
+    const srcPath = path.join(config_1.workspace, src);
+    return fs.promises.readFile(srcPath, { encoding: 'utf-8' });
+}
+
+
+/***/ }),
+
+/***/ 6144:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//  Library
+const core = __importStar(__nccwpck_require__(2186));
+const action_1 = __importDefault(__nccwpck_require__(7672));
+//  ====
+//  MAIN
+//  ====
+/** GitHub Action Main Entrypoint */
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield (0, action_1.default)();
+        }
+        catch (err) {
+            const error = err;
+            core.setFailed(error);
+            console.error(error);
+        }
+    });
+}
+run();
+
+
+/***/ }),
+
+/***/ 4048:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+//  =======
+//  LIBRARY
+//  =======
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(9698), exports);
+__exportStar(__nccwpck_require__(7719), exports);
+
+
+/***/ }),
+
+/***/ 9698:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.octokit = void 0;
+//  Library
+const core = __importStar(__nccwpck_require__(2186));
+const github = __importStar(__nccwpck_require__(5438));
+//  =======
+//  OCTOKIT
+//  =======
+/** Personal-Access-Token with gist permissions. */
+const GIST_TOKEN = process.env.GIST_TOKEN || '';
+if (!GIST_TOKEN) {
+    core.setFailed('Invalid GIST_TOKEN');
+}
+//  ------------------------------------------------
+exports.octokit = github.getOctokit(GIST_TOKEN);
+//  ------------------------------------------------
+
+
+/***/ }),
+
+/***/ 7719:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.readFiles = void 0;
+//  Library
+const fs = __importStar(__nccwpck_require__(7561));
+const path = __importStar(__nccwpck_require__(9411));
+const core = __importStar(__nccwpck_require__(2186));
+const config_1 = __nccwpck_require__(6373);
+//  ===============
+//  READ REPO FILES
+//  ===============
+/**
+ * Reads the files specified in the gist config and returns an octokit compatible object
+ * @returns files object required for octokit.rest.gists.update()
+ */
+function readFiles(filePaths) {
+    let result = {};
+    filePaths.forEach(filePath => {
+        //  Determine paths
+        const workspacePathName = path.join(config_1.workspace, filePath);
+        const fileName = path.basename(workspacePathName);
+        //  Read files contents
+        let content;
+        try {
+            content = fs.readFileSync(workspacePathName, 'utf-8');
+        }
+        catch (_) {
+            core.error(`Failed to read: ${filePath}`);
+            return; //  Return from forEach if no file was found
+        }
+        //  Add to files object
+        result[fileName] = { content };
+    });
+    return result;
+}
+exports.readFiles = readFiles;
+
+
+/***/ }),
+
+/***/ 3252:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+//  ===============
+//  ACTION METADATA
+//  ===============
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.outputs = exports.inputs = void 0;
+//  ========
+//  METADATA
+//  ========
+/** Metadata inputs */
+exports.inputs = {
+    isDryRun: 'dry-run',
+    gists: 'gists'
+};
+/** Metadata outputs */
+exports.outputs = {};
+
+
+/***/ }),
+
 /***/ 2877:
 /***/ ((module) => {
 
@@ -13033,7 +13167,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(4822);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(6144);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
