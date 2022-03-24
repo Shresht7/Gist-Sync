@@ -1,6 +1,7 @@
 //  Library
 import * as core from '@actions/core'
-import { octokit, isDryRun, gists } from './library'
+import { octokit } from './library'
+import { isDryRun, gists } from './config'
 
 //  Helpers
 import { gistExists, readFiles } from './helpers'
@@ -10,7 +11,7 @@ import { gistExists, readFiles } from './helpers'
 //  ===========
 
 /** Gist-Mirror Action */
-async function gistSync() {
+async function action() {
     for (const gist of gists) {
 
         //  Check if the gist already exists...
@@ -33,6 +34,6 @@ async function gistSync() {
     }
 }
 
-//  -------------------
-export default gistSync
-//  -------------------
+//  -----------------
+export default action
+//  -----------------

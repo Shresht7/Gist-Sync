@@ -1,18 +1,19 @@
 //  Library
 import * as core from '@actions/core'
-import gistMirror from './gistMirror'
+import action from './action'
 
 //  ====
 //  MAIN
 //  ====
 
+/** GitHub Action Main Entrypoint */
 async function run() {
     try {
-        await gistMirror()
+        await action()
     } catch (err) {
-        let error = err as Error
+        const error = err as Error
         core.setFailed(error)
-        process.exit(1)
+        console.error(error)
     }
 }
 

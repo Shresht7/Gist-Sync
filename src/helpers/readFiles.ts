@@ -2,7 +2,7 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as core from '@actions/core'
-import { workspaceURL } from '../library/config'
+import { workspace } from '../config'
 
 //  Type Definitions
 import { Gist } from '../types'
@@ -24,7 +24,7 @@ export function readFiles(gist: Gist): Files {
 
     gist.files.forEach(pathName => {
         //  Determine paths
-        const workspacePathName = path.join(workspaceURL, pathName)
+        const workspacePathName = path.join(workspace, pathName)
         const fileName = path.basename(workspacePathName)
 
         //  Read files contents
