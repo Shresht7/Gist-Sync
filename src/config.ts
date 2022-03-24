@@ -4,7 +4,6 @@ import * as yaml from 'js-yaml'
 
 //  Helpers
 import { inputs } from './metadata'
-import { readFile } from './helpers'
 
 //  Type Definitions
 import type { Gists } from './types'
@@ -24,13 +23,13 @@ export const workspace = process.env.GITHUB_WORKSPACE
 //  DRY RUN
 //  -------
 
-/** Dry-run toggle. No actual changes will be made while this is true. */
-export const isDryRun = core.getBooleanInput(inputs.isDryRun)
+/** Dry-run toggle. No actual changes will be made if this is true */
+export const isDryRun = core.getBooleanInput(inputs.isDryRun) || false
 
 //  GISTS
 //  -----
 
 /** Gists Config. YAML mapping GistIDs to their corresponding files */
-const gistsInput = core.getMultilineInput(inputs.gists).join('\n')
+const gistsInput = core.getMultilineInput(inputs.gists, { required: true }).join('\n')
 
 export const gists: Gists = yaml.load(gistsInput) as Gists
