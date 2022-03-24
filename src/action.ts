@@ -12,13 +12,13 @@ import { gistExists, readFiles } from './helpers'
 
 /** Gist-Mirror Action */
 async function action() {
-    for (const [id, _files] of Object.entries(gists)) {
+    for (const [id, filePaths] of Object.entries(gists)) {
 
         //  Check if the gist already exists...
         if (await !gistExists(id)) { continue }    //  ...Skip this gist if it doesn't
 
         //  Populate files object
-        const files = readFiles(_files)
+        const files = readFiles(filePaths)
 
         core.info(`Updating Gist (ID: ${id})`)
 

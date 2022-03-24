@@ -13,15 +13,14 @@ type Files = Record<string, { content: string }>
 
 /**
  * Reads the files specified in the gist config and returns an octokit compatible object
- * @param gist Gist object containing gistID and an array of files
  * @returns files object required for octokit.rest.gists.update()
  */
-export function readFiles(files: string[]): Files {
+export function readFiles(filePaths: string[]): Files {
     let result: Files = {}
 
-    files.forEach(pathName => {
+    filePaths.forEach(filePath => {
         //  Determine paths
-        const workspacePathName = path.join(workspace, pathName)
+        const workspacePathName = path.join(workspace, filePath)
         const fileName = path.basename(workspacePathName)
 
         //  Read files contents
@@ -29,7 +28,7 @@ export function readFiles(files: string[]): Files {
         try {
             content = fs.readFileSync(workspacePathName, 'utf-8')
         } catch (_) {
-            core.error(`Failed to read: ${pathName}`)
+            core.error(`Failed to read: ${filePath}`)
             return  //  Return from forEach if no file was found
         }
 
