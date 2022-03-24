@@ -1,11 +1,26 @@
-# Gist-Mirror
+<h1 align='center'>
+  Gist-Mirror
+</h1>
+
+<p align='center'>
+  <!-- slot: description -->
+  Mirror files from your repository to GitHub Gists
+  <!-- /slot -->
+</p>
+
 -------------
 
-Mirror files from your repository to GitHub Gists.
+## 📖 Usage
 
-## Workflow Setup
+1. Create a [`GIST_TOKEN`](#gist-token) and setup the [workflow](#workflow-setup). Modify the workflow file as needed (e.g. disable `dryrun` by setting it to `false`).
+2. Create a new [Gist](https://gist.github.com/) and note it's ID. 
+    > **Note**: The workflow does not create new gists on its own, you have to provide an existing Gist ID.
+3. Create `gists.yml` in the `.github` directory. This files maps Gist IDs to corresponding files.
+4. Run the workflow 🚀
 
-### Gist Token
+### 1. Workflow Setup
+
+#### 1. Gist Token
 
 The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to the local repository. In other words, it _does not_ have permission to access GitHub Gists. You will have to provide a [**personal access token**](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (with the `gist` permission) as a secret.
 
@@ -18,7 +33,7 @@ The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to t
       GIST_TOKEN: ${{ secret.[SECRET_NAME] }}
 ```
 
-### Workflow file
+#### 2. Workflow file
 
 Create the workflow file `.github/workflows/gist-mirror.yml`
 
@@ -58,7 +73,7 @@ jobs:
       # ==========================
 
       - name: Gist-Mirror
-        uses: Shresht7/Gist-Mirror@main
+        uses: Shresht7/Gist-Mirror@v1
         id: Gist-Mirror
 
         # Config Parameters
@@ -77,16 +92,10 @@ jobs:
 
 ```
 
-### Inputs
+## 📋 Inputs
 
-#### dryrun
-
-Potential changes will only be logged if `dryrun` is `true`. For Gist-Mirror to actually modify anything, you will have to set `dryrun` to `false`. (default: `true`)
-
-#### gists
-
-Name of the config file that maps files to their corresponding gist IDs. (default: `gists.yml`)
-**Note**: This file should be placed directly in your `.github` folder in the root of your repo.
+<!-- slot: inputs -->
+<!-- /slot -->
 
 ### On Push Trigger
 
@@ -116,14 +125,7 @@ Read more about [events that trigger workflows](https://docs.github.com/en/actio
 
 You can use these event triggers to run the workflow automatically whenever a file (that is to be mirrored to a gist) is changed.
 
-## Usage
-
-1. Create a [`GIST_TOKEN`](#gist-token) and setup the [workflow](#workflow-setup). Modify the workflow file as needed (e.g. disable `dryrun` by setting it to `false`).
-2. Create a new [Gist](https://gist.github.com/) and note it's ID. **Note**: The workflow does not create new gists on its own, you have to provide an existing Gist ID.
-3. Create `gists.yml` in the `.github` directory. This files maps Gist IDs to corresponding files.
-4. Run the workflow 🚀
-
-### Example gists.yml
+### 📄 Example gists.yml
 
 ```yaml
 - id: GIST_ID
@@ -131,7 +133,7 @@ You can use these event triggers to run the workflow automatically whenever a fi
     - README.md
 ```
 
-### Multiple Gists
+### 📄 Multiple Gists
 
 You can mirror to multiple gists!
 
@@ -147,6 +149,12 @@ You can mirror to multiple gists!
     - http_status_codes.rs
 ```
 
-## Permissions
+## 📑 Permissions
 
 This action needs a [**personal access token**](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (with the _gist_ permission) in order to update gists.
+
+---
+
+## 📑 License
+
+> [MIT License](./LICENSE)
