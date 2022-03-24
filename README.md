@@ -60,7 +60,6 @@ Use this action in a workflow.
   env:
     GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
   with:
-    dryrun: false
     gists: |
       bed31c34989a8ee63ec0dc4981a74c9a:
         - README.md
@@ -118,6 +117,10 @@ gist_id_2:
   - package-lock.json
   - .gitignore
 ```
+
+### dry-run
+
+If set to `true`, the action will not make any real changes and will only output logs.
 
 ## 
 

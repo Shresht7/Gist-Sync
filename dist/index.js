@@ -1,4 +1,4 @@
-require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 7351:
@@ -12953,7 +12953,7 @@ exports.outputs = exports.inputs = void 0;
 //  ========
 /** Metadata inputs */
 exports.inputs = {
-    isDryRun: 'dryrun',
+    isDryRun: 'dry-run',
     gists: 'gists'
 };
 /** Metadata outputs */
@@ -13153,4 +13153,3 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map

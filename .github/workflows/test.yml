@@ -34,7 +34,7 @@ jobs:
       - name: test
         uses: ./
         with:
-          dryrun: true
+          dry-run: true
           gists: |
             bed31c34989a8ee63ec0dc4981a74c9a:
               - README.md
