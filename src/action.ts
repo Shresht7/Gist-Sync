@@ -13,7 +13,8 @@ async function action() {
     for (const [id, filePaths] of Object.entries(gists)) {
 
         //  Check if the gist already exists...
-        if (await !gistExists(id)) { continue }    //  ...Skip this gist if it doesn't
+        const exists = await gistExists(id)
+        if (!exists) { continue }    //  ...Skip this gist if it doesn't
 
         //  Populate files object
         const files = readFiles(filePaths)
@@ -21,7 +22,7 @@ async function action() {
         core.info(`Updating Gist (ID: ${id})`)
 
         //  Exit out of the loop early if dry-run is enabled
-        if (isDryRun) { core.warning('NOTE: This is a dry-run'); continue }
+        if (isDryRun) { core.warning('Note: This is a dry-run'); continue }
 
         //  Update gist
         await octokit.rest.gists.update({

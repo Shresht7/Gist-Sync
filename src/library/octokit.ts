@@ -10,7 +10,7 @@ import * as github from '@actions/github'
 const GIST_TOKEN = process.env.GIST_TOKEN || ''
 
 if (!GIST_TOKEN) {
-    core.setFailed('Invalid GIST_TOKEN');
+    core.setFailed('Invalid GIST_TOKEN')
 }
 
 //  ------------------------------------------------

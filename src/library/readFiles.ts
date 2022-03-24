@@ -16,7 +16,7 @@ type Files = Record<string, { content: string }>
  * @returns files object required for octokit.rest.gists.update()
  */
 export function readFiles(filePaths: string[]): Files {
-    let result: Files = {}
+    let files: Files = {}
 
     filePaths.forEach(filePath => {
         //  Determine paths
@@ -33,8 +33,8 @@ export function readFiles(filePaths: string[]): Files {
         }
 
         //  Add to files object
-        result[fileName] = { content }
+        files[fileName] = { content }
     })
 
-    return result
+    return files
 }
