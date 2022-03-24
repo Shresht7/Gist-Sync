@@ -98,10 +98,10 @@ To see a working example, see [Workflow Example](#-workflow-examples).
 ## 📋 Inputs
 
 <!-- slot: inputs  -->
-| Input    | Description                                         |     Default |   Required   |
-| :------- | :-------------------------------------------------- | ----------: | :----------: |
-| `gists`  | YAML mapping GistIDs to their corresponding files   | `undefined` | **required** |
-| `dryrun` | No actual changes will be made if dryrun is enabled |      `true` |              |
+| Input     | Description                                          |     Default |   Required   |
+| :-------- | :--------------------------------------------------- | ----------: | :----------: |
+| `gists`   | YAML mapping Gist IDs to their corresponding files   | `undefined` | **required** |
+| `dry-run` | No actual changes will be made if dry-run is enabled |     `false` |              |
 <!-- /slot -->
 
 ### gists
@@ -136,7 +136,7 @@ To see a working example of this action, see this [workflow](./.github/workflows
 
   <br />
 
-<!-- slot: workflow-example  prepend ```yaml, append: ``` -->
+<!-- slot: workflow-example prepend ```yaml, append: ``` -->
 ```yaml
 # ===========================================
 #                 GIST-MIRROR
@@ -158,8 +158,8 @@ on:
 
   workflow_dispatch: # When a workflow event is dispatched manually
     inputs:
-      dryrun:
-        description: No actual changes will be made in a dry-run
+      dry-run:
+        description: Dry-Run Switch
         default: "false"
         required: false
 
@@ -180,7 +180,7 @@ jobs:
         uses: actions/checkout@v3
 
       # Execute Gist-Mirror Action
-      # ========================
+      # ==========================
 
       - name: Gist-Mirror
         uses: Shresht7/Gist-Mirror@main
@@ -190,7 +190,7 @@ jobs:
         # -----------------
 
         with:
-          dryrun: ${{ github.event.inputs.dryrun }}
+          dry-run: ${{ github.event.inputs.dry-run }}
           gists: |
             bed31c34989a8ee63ec0dc4981a74c9a:
               - README.md
