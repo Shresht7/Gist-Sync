@@ -30,24 +30,7 @@ export const isDryRun = core.getBooleanInput(inputs.isDryRun)
 //  GISTS
 //  -----
 
-/** Gists Config. Can be a YAML string mapping gistIDs to files. Or a list of files containing such yaml strings */
-const gistsInput = core.getMultilineInput(inputs.gists)
+/** Gists Config. YAML mapping GistIDs to their corresponding files */
+const gistsInput = core.getMultilineInput(inputs.gists).join('\n')
 
-/** Temporary variable to track Gists */
-let _gists: Gists = {}
-try {
-    //  Try to parse input as YAML. If it succeeds, the input is the config.
-    _gists = yaml.load(gistsInput.join('\n')) as Gists
-} catch (err) {
-    //  Otherwise, the input is treated as a list of files containing the yaml config
-    for (const files of gistsInput) {
-        //  Read and parse all files into a single config
-        readFile(files)
-            .then(contents => {
-                const data = yaml.load(contents) as Gists
-                _gists = { ..._gists, ...data }
-            })
-    }
-}
-
-export const gists: Gists = _gists
+export const gists: Gists = yaml.load(gistsInput) as Gists
