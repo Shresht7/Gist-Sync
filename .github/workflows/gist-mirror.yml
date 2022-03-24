@@ -15,8 +15,13 @@ on:
       # Whenever a commit that affects the given files is pushed
       - README.md
       - ./github/workflows/gist-mirror.yml
-  
-  workflow_dispatch:  # When a workflow event is dispatched manually
+
+  workflow_dispatch: # When a workflow event is dispatched manually
+    inputs:
+      dryrun:
+        description: No actual changes will be made in a dry-run
+        default: "false"
+        required: false
 
 # Jobs
 # ====
@@ -24,10 +29,9 @@ on:
 jobs:
   Gist-Mirror:
     runs-on: ubuntu-latest
-    
+
     name: Gist-Mirror
     steps:
-    
       # Actions/Checkout
       # ================
 
@@ -46,9 +50,11 @@ jobs:
         # -----------------
 
         with:
-          dryrun: false         # Will not make any actual changes if true (default: true)
-          gists: 'gists.yml'    # File containing the file-gist mapping
-
+          dryrun: ${{ github.event.inputs.dryrun }}
+          gists: |
+            bed31c34989a8ee63ec0dc4981a74c9a:
+              - README.md
+              - .github/workflows/gist-mirror.yml
 
         # Environment Variables
         # ---------------------
