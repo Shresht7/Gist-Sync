@@ -10,13 +10,12 @@ Mirror files from your repository to GitHub Gists
 
 -------------
 
-## 📖 Usage
+## 📑 Permissions
 
-1. Create a [`GIST_TOKEN`](#gist-token) and setup the [workflow](#workflow-setup). Modify the workflow file as needed (e.g. disable `dryrun` by setting it to `false`).
-2. Create a new [Gist](https://gist.github.com/) and note it's ID. 
-    > **Note**: The workflow does not create new gists on its own, you have to provide an existing Gist ID.
-3. Create `gists.yml` in the `.github` directory. This files maps Gist IDs to corresponding files.
-4. Run the workflow 🚀
+This action needs a [**personal access token**](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (with the _gist_ permission) in order to update gists.
+
+
+## 📖 Usage
 
 ### 1. Workflow Setup
 
@@ -26,80 +25,38 @@ The `GITHUB_TOKEN` that comes with GitHub Actions by default, is restricted to t
 
 1. Get a [personal-access-token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 1. Add it to your [repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repo settings.
-1. pass the secret to the action using the [workflow file](#workflow-file)
+2. When you create the [workflow](#workflow), pass the secret in as the `GIST_TOKEN` environment variable.
 
 ```yaml
     env:
       GIST_TOKEN: ${{ secret.[SECRET_NAME] }}
 ```
 
-#### 2. Workflow file
+#### 2. Workflow
 
-Create the workflow file `.github/workflows/gist-mirror.yml`
+Use this action in a workflow.
 
 ```yaml
-# ===========================================
-#                   GIST-MIRROR
-# -------------------------------------------
-# Mirror files from your repo to GitHub Gists
-# ===========================================
+- name: Gist-Mirror
+  id: Gist-Mirror
+  uses: Shresht7/Gist-Mirror@v1
 
-name: Gist-Mirror
+  # Config Parameters
+  # -----------------
 
-# Activation Events
-# =================
+  with:
+    dryrun: false
+    gists: |
+      bed31c34989a8ee63ec0dc4981a74c9a:
+        - README.md
+        - .github/workflows/gist-mirror.yml
 
-on:
-  workflow_dispatch:  # When a workflow event is dispatched manually
+  # Environment Variables
+  # ---------------------
 
-# Jobs
-# ====
-
-jobs:
-  Gist-Mirror:
-    runs-on: ubuntu-latest
-    
-    name: Gist-Mirror
-    steps:
-    
-      # Actions/Checkout
-      # ================
-
-      # Required for GITHUB_WORKSPACE
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Execute Gist-Mirror Action
-      # ==========================
-
-      - name: Gist-Mirror
-        uses: Shresht7/Gist-Mirror@v1
-        id: Gist-Mirror
-
-        # Config Parameters
-        # -----------------
-
-        with:
-          dryrun: true          # Will not make any actual changes if true (default: true)
-          gists: 'gists.yml'    # File containing the file-gist mapping
-
-
-        # Environment Variables
-        # ---------------------
-
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.
-
+  env:
+    GIST_TOKEN: ${{ secrets.GIST_TOKEN }} # Personal-Access-Token with gist permissions.
 ```
-
-## 📋 Inputs
-
-<!-- slot: inputs  -->
-| Input     | Description                                          |     Default | Required |
-| :-------- | :--------------------------------------------------- | ----------: | :------: |
-| `gists`   | YAML mapping GistIDs to their corresponding files    | `undefined` |          |
-| `dry-run` | No actual changes will be made if dry-run is enabled |      `true` |          |
-<!-- /slot -->
 
 ### On Push Trigger
 
@@ -108,7 +65,6 @@ You can use the on-push events to run the workflow automatically whenever commit
 Trigger when commits are pushed to the main branch
 
 ```yaml
-# ... Workflow file
 on:
   push:
     branches:
@@ -129,33 +85,47 @@ Read more about [events that trigger workflows](https://docs.github.com/en/actio
 
 You can use these event triggers to run the workflow automatically whenever a file (that is to be mirrored to a gist) is changed.
 
-### 📄 Example gists.yml
+To see a working example, see [Workflow-Example](#-workflow-examples).
+
+## 📋 Inputs
+
+<!-- slot: inputs  -->
+| Input     | Description                                          |     Default | Required |
+| :-------- | :--------------------------------------------------- | ----------: | :------: |
+| `gists`   | YAML mapping GistIDs to their corresponding files    | `undefined` |          |
+| `dry-run` | No actual changes will be made if dry-run is enabled |      `true` |          |
+<!-- /slot -->
+
+### gists
+
+The `gists` input takes in a YAML configuration mapping GistIDs to their corresponding files. All files specified in the configs will be pushed to their corresponding gists. You can specify multiple gist-ids and files.
 
 ```yaml
-- id: GIST_ID
-  files:
-    - README.md
+<gist_id_1>:
+  - README.md
+
+<gist_id_2>:
+  - package.json
+  - package-lock.json
+  - .gitignore
 ```
 
-### 📄 Multiple Gists
+## 
 
-You can mirror to multiple gists!
+## 📃 Workflow Example
 
-```yaml
-- id: GIST_ID_1
-  files:
-    - README.md
-    - httpStatusCodes.ts
+To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is generated [Gist]([./](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a)).
 
-- id: GIST_ID_2
-  files:
-    - README.md
-    - http_status_codes.rs
-```
+<details>
 
-## 📑 Permissions
+  <summary>
+    or click here
+  </summary>
 
-This action needs a [**personal access token**](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (with the _gist_ permission) in order to update gists.
+<!-- slot: workflow-example -->
+<!-- /slot -->
+
+</details>
 
 ---
 
