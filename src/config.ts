@@ -3,6 +3,7 @@ import * as core from '@actions/core'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as yaml from 'js-yaml'
+import { inputs } from './metadata'
 
 //  Type Definitions
 import { Gist } from './types'
@@ -20,7 +21,7 @@ if (!process.env.GITHUB_WORKSPACE) {
 //  -------
 
 /** Dry-run toggle. No actual changes will be made while this is true. */
-export const isDryRun = core.getBooleanInput('dryrun') ?? false
+export const isDryRun = core.getBooleanInput(inputs.isDryRun)
 
 //  GISTS
 //  -----
@@ -28,7 +29,7 @@ export const isDryRun = core.getBooleanInput('dryrun') ?? false
 //  Read gists.yaml
 export const workspace = process.env.GITHUB_WORKSPACE
 
-const fileName = core.getInput('gists')
+const fileName = core.getInput(inputs.gists)
 let fileContents
 try {
     fileContents = fs.readFileSync(path.join(workspace, '.github', fileName), 'utf-8')
