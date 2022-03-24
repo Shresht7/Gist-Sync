@@ -8,6 +8,16 @@ Mirror files from your repository to GitHub Gists
 <!-- /slot -->
 </p>
 
+
+<div align='center'>
+
+[![Validate](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml)
+[![Gist-Mirror](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml)
+[![Action Readme](https://github.com/Shresht7/Gist-Mirror/actions/workflows/action-readme.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/action-readme.yml)
+
+</div>
+
+
 -------------
 
 ## 📑 Permissions
@@ -121,8 +131,6 @@ gist_id_2:
 ### dry-run
 
 If set to `true`, the action will not make any real changes and will only output logs.
-
-## 
 
 ## 📃 Workflow Example
 
