@@ -3,9 +3,9 @@
 </h1>
 
 <p align='center'>
-  <!-- slot: description -->
-  Mirror files from your repository to GitHub Gists
-  <!-- /slot -->
+  <!-- slot: description  -->
+Mirror files from your repository to GitHub Gists
+<!-- /slot -->
 </p>
 
 -------------
@@ -94,7 +94,11 @@ jobs:
 
 ## 📋 Inputs
 
-<!-- slot: inputs -->
+<!-- slot: inputs  -->
+| Input     | Description                                          |     Default | Required |
+| :-------- | :--------------------------------------------------- | ----------: | :------: |
+| `gists`   | YAML mapping GistIDs to their corresponding files    | `undefined` |          |
+| `dry-run` | No actual changes will be made if dry-run is enabled |      `true` |          |
 <!-- /slot -->
 
 ### On Push Trigger
