@@ -134,7 +134,7 @@ If set to `true`, the action will not make any real changes and will only output
 
 ## 📃 Workflow Example
 
-To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is the generated [Gist]([./](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a)).
+To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is the generated [Gist](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a).
 
 <details>
 
