@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v3
 
       # Execute Gist-Mirror Action
-      # ========================
+      # ==========================
 
       - name: Gist-Mirror
         uses: Shresht7/Gist-Mirror@main
