@@ -2,16 +2,24 @@
   Gist-Mirror
 </h1>
 
+
+<div align='center'>
+
+[![Release](https://img.shields.io/github/v/release/Shresht7/Gist-Mirror?style=for-the-badge)](https://github.com/Shresht7/Gist-Mirror/releases)
+[![License](https://img.shields.io/github/license/Shresht7/Gist-Mirror?style=for-the-badge)](./LICENSE)
+
+</div>
+
 <p align='center'>
   <!-- slot: description  -->
 Mirror files from your repository to GitHub Gists
 <!-- /slot -->
 </p>
 
-
 <div align='center'>
 
-[![Validate](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml)
+[![Test](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/test.yml)
+[![Validate](https://github.com/Shresht7/Gist-Mirror/actions/workflows/validate.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/validate.yml)
 [![Gist-Mirror](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml)
 [![Action Readme](https://github.com/Shresht7/Gist-Mirror/actions/workflows/action-readme.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/action-readme.yml)
 
