@@ -206,7 +206,7 @@ jobs:
       # ==========================
 
       - name: Gist-Mirror
-        uses: Shresht7/Gist-Mirror@main
+        uses: Shresht7/Gist-Mirror@v1
         id: Gist-Mirror
 
         # Config Parameters
