@@ -1,7 +1,7 @@
 {
   "name": "gist-mirror",
   "version": "0.1.0",
-  "description": "GitHub Action to mirror files from your repository to GitHub Gists",
+  "description": "Mirror files from your repository to GitHub Gists",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ncc build src/index.ts --source-map --license licenses.txt",
