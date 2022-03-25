@@ -205,11 +205,13 @@ jobs:
         # -----------------
 
         with:
-          dry-run: ${{ github.event.inputs.dry-run }}
+          dry-run: ${{ github.event.inputs.dry-run == 'true' }}
           gists: |
-            bed31c34989a8ee63ec0dc4981a74c9a:
-              - README.md
-              - .github/workflows/gist-mirror.yml
+            - id: bed31c34989a8ee63ec0dc4981a74c9a
+              description: Gist-Mirror Action
+              files:
+                - README.md
+                - .github/workflows/gist-mirror.yml
 
         # Environment Variables
         # ---------------------
