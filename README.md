@@ -120,10 +120,10 @@ To see a working example, see [Workflow Example](#-workflow-examples).
 ## 📋 Inputs
 
 <!-- slot: inputs  -->
-| Input     | Description                                          |     Default |   Required   |
-| :-------- | :--------------------------------------------------- | ----------: | :----------: |
-| `gists`   | YAML mapping Gist IDs to their corresponding files   | `undefined` | **required** |
-| `dry-run` | No actual changes will be made if dry-run is enabled |     `false` |              |
+| Input     | Description                                          |     Default | Required |
+| :-------- | :--------------------------------------------------- | ----------: | :------: |
+| `gists`   | YAML mapping Gist IDs to their corresponding files   | `undefined` |     ✅    |
+| `dry-run` | No actual changes will be made if dry-run is enabled |     `false` |          |
 <!-- /slot -->
 
 ### gists
