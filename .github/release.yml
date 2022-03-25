@@ -13,7 +13,7 @@ changelog:
     # - ignore-for-release
 
     authors:
-      # - Shresht7
+      # - github-actions[bot]
 
   categories:
     - title: Breaking Changes 🛠
