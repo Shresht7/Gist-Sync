@@ -53,8 +53,10 @@ The workflow takes a YAML input mapping gist-IDs to their corresponding files. e
 ```yaml
 with:
   gists: |
-    xyz123:
-      - README.md
+    - id: xyz123
+      description: A test gist
+      files:
+        - README.md
 ```
 
 > Note the `|`. It signifies that the input is a multiline string and not part of the workflow yaml.
@@ -71,9 +73,11 @@ Use this action in a workflow.
     GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
   with:
     gists: |
-      bed31c34989a8ee63ec0dc4981a74c9a:
-        - README.md
-        - .github/workflows/gist-mirror.yml
+      - id: bed31c34989a8ee63ec0dc4981a74c9c
+        description: Gist-Mirror Action
+        files:
+          - README.md
+          - .github/workflows/gist-mirror.yml
 ```
 
 ### On Push Trigger
@@ -119,13 +123,16 @@ To see a working example, see [Workflow Example](#-workflow-examples).
 The `gists` input takes in a YAML configuration mapping gist-ID to their corresponding files. You can specify multiple gist-IDs and multiple files.
 
 ```yaml
-gist_id_1:
-  - README.md
+- id: gist_id_1
+  description: single file gist
+  files:
+    - README.md
 
-gist_id_2:
-  - package.json
-  - package-lock.json
-  - .gitignore
+- id: gist_id_2
+  files:
+    - package.json
+    - package-lock.json
+    - .gitignore
 ```
 
 ### dry-run
