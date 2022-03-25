@@ -6,7 +6,7 @@ import * as yaml from 'js-yaml'
 import { inputs } from './metadata'
 
 //  Type Definitions
-import type { Gists } from './types'
+import type { Gist } from './types'
 
 
 if (!process.env.GITHUB_WORKSPACE) {
@@ -32,4 +32,8 @@ export const isDryRun = core.getBooleanInput(inputs.isDryRun) || false
 /** Gists Config. YAML mapping GistIDs to their corresponding files */
 const gistsInput = core.getMultilineInput(inputs.gists, { required: true }).join('\n')
 
-export const gists: Gists = yaml.load(gistsInput) as Gists
+export const gists: Gist[] = yaml.load(gistsInput) as Gist[]
+
+if (!Array.isArray(gists)) {
+    throw new Error('Invalid gists input. Failed to parse as an array')
+}
