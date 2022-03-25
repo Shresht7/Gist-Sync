@@ -1,5 +1,4 @@
 //  Library
-import * as core from '@actions/core'
 import * as github from '@actions/github'
 
 //  =======
@@ -10,7 +9,7 @@ import * as github from '@actions/github'
 const GIST_TOKEN = process.env.GIST_TOKEN || ''
 
 if (!GIST_TOKEN) {
-    throw new Error('Invalid GIST_TOKEN')
+    throw new Error('Invalid GIST_TOKEN. You need to provide a personal-access-token with gist permissions for the Gist-Mirror action')
 }
 
 //  ------------------------------------------------
