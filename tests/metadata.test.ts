@@ -22,8 +22,6 @@ test('description should be the same as in package.json', () => {
     assert.equal(metadata.description, packageJSON.description)
 })
 
-// TODO: Add Version Check for package.json. Match with latest released tag.
-
 test('package.json main should point to the main entrypoint of the action', () => {
     assert.equal(metadata.runs.main, packageJSON.main)
 })

@@ -1,6 +1,6 @@
 {
   "name": "gist-mirror",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Mirror files from your repository to GitHub Gists",
   "main": "dist/index.js",
   "scripts": {
