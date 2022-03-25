@@ -1,0 +1,35 @@
+# .github/release.yml
+
+# =================
+# Release Changelog
+# =================
+
+changelog:
+  # Exclusion List
+  # --------------
+
+  exclude:
+    labels:
+    # - ignore-for-release
+
+    authors:
+      # - Shresht7
+
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - Semver-Major
+        - breaking-change
+
+    - title: New Features 🚀
+      labels:
+        - Semver-Minor
+        - enhancement
+
+    - title: Bug Fixes 🔨
+      labels:
+        - bug
+
+    - title: Other Changes
+      labels:
+        - "*"
