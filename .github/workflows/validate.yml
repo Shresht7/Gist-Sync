@@ -1,0 +1,45 @@
+# ========
+# VALIDATE
+# ========
+
+name: Validate
+
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - "releases/*"
+
+jobs:
+  # Build
+  # -----
+
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          npm install
+          npm run build
+
+  # Test
+  # ----
+
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: test
+        uses: ./
+        with:
+          dry-run: true
+          gists: |
+            - id: bed31c34989a8ee63ec0dc4981a74c9a
+              description: Gist-Mirror Action
+              files:
+                - README.md
+                - .github/workflows/gist-mirror.yml
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}

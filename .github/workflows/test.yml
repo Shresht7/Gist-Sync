@@ -1,45 +1,29 @@
-# ========
-# VALIDATE
-# ========
+# ====
+# TEST
+# ====
 
-name: Validate
+name: Test
 
-on: # rebuild any PRs and main branch changes
+# Activation Events
+# =================
+
+on: # Validate on any PRs and main branch changes
   pull_request:
   push:
     branches:
       - main
       - "releases/*"
+  workflow_dispatch:
+
+# Jobs
+# ====
 
 jobs:
-  # Build
-  # -----
-
-  build: # make sure build/ci work properly
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          npm install
-          npm run build
-
-  # Test
-  # ----
-
-  test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
       - name: test
-        uses: ./
-        with:
-          dry-run: true
-          gists: |
-            - id: bed31c34989a8ee63ec0dc4981a74c9a
-              description: Gist-Mirror Action
-              files:
-                - README.md
-                - .github/workflows/gist-mirror.yml
-        env:
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          npm install
+          npm run test
