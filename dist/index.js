@@ -1,4 +1,4 @@
-require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 7351:
@@ -12515,17 +12515,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gists = exports.isDryRun = exports.workspace = void 0;
+exports.gists = exports.isDryRun = void 0;
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const yaml = __importStar(__nccwpck_require__(1917));
 //  Helpers
 const metadata_1 = __nccwpck_require__(3252);
-if (!process.env.GITHUB_WORKSPACE) {
-    throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable');
-}
-/** GitHub Workspace */
-exports.workspace = process.env.GITHUB_WORKSPACE;
 //  ======
 //  CONFIG
 //  ======
@@ -12702,9 +12697,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.readFile = void 0;
 //  Library
 const fs = __importStar(__nccwpck_require__(7561));
-const path = __importStar(__nccwpck_require__(9411));
 const isURL_1 = __nccwpck_require__(4127);
-const config_1 = __nccwpck_require__(6373);
 /** Read file from the given path or url */
 function readFile(src) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -12728,8 +12721,7 @@ function readFromURL(url) {
 }
 /** Read from the given path */
 function readFromFile(src) {
-    const srcPath = path.join(config_1.workspace, src);
-    return fs.promises.readFile(srcPath, { encoding: 'utf-8' });
+    return fs.promises.readFile(src, { encoding: 'utf-8' });
 }
 
 
@@ -12910,7 +12902,6 @@ exports.readFiles = void 0;
 const fs = __importStar(__nccwpck_require__(7561));
 const path = __importStar(__nccwpck_require__(9411));
 const core = __importStar(__nccwpck_require__(2186));
-const config_1 = __nccwpck_require__(6373);
 //  ===============
 //  READ REPO FILES
 //  ===============
@@ -12922,12 +12913,11 @@ function readFiles(filePaths) {
     let files = {};
     filePaths.forEach(filePath => {
         //  Determine paths
-        const workspacePathName = path.join(config_1.workspace, filePath);
-        const fileName = path.basename(workspacePathName);
+        const fileName = path.basename(filePath);
         //  Read files contents
         let content;
         try {
-            content = fs.readFileSync(workspacePathName, 'utf-8');
+            content = fs.readFileSync(filePath, 'utf-8');
         }
         catch (_) {
             core.error(`Failed to read: ${filePath}`);
@@ -13158,4 +13148,3 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map

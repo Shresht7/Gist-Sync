@@ -2,7 +2,6 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as core from '@actions/core'
-import { workspace } from '../config'
 
 /** Maps fileNames to fileContents */
 type Files = Record<string, { content: string }>
@@ -20,13 +19,12 @@ export function readFiles(filePaths: string[]): Files {
 
     filePaths.forEach(filePath => {
         //  Determine paths
-        const workspacePathName = path.join(workspace, filePath)
-        const fileName = path.basename(workspacePathName)
+        const fileName = path.basename(filePath)
 
         //  Read files contents
         let content: string
         try {
-            content = fs.readFileSync(workspacePathName, 'utf-8')
+            content = fs.readFileSync(filePath, 'utf-8')
         } catch (_) {
             core.error(`Failed to read: ${filePath}`)
             return  //  Return from forEach if no file was found
