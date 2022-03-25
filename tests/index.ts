@@ -41,10 +41,12 @@ function main() {
             const fileName = path.basename(x).replace(fileExtension, '')
             if (!fileName || done.includes(fileName)) { return }    //  If a test with the same fileName is already done then skip it
             done.push(fileName)
-            console.log('loading: ' + x.replace(fileName, `\u001b[1m${fileName}\u001b[22m`) + '\n')
+            console.log('loading: ' + x.replace(fileName, `\u001b[1m${fileName}\u001b[22m`))
             require(x)
         }
     })
+
+    console.log('\n')
 
     //  Iterate over the map and run all test suites
     tests.forEach(test => {
