@@ -151,6 +151,8 @@ If set to `true`, the action will not make any real changes and will only output
 
 To see a working example of this action, see this [workflow](./.github/workflows/gist-mirror.yml). This is the generated [Gist](https://gist.github.com/Shresht7/bed31c34989a8ee63ec0dc4981a74c9a).
 
+[![Gist-Mirror](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml/badge.svg)](https://github.com/Shresht7/Gist-Mirror/actions/workflows/gist-mirror.yml)
+
 <details>
 
   <summary>
