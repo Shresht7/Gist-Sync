@@ -43,29 +43,23 @@ jobs:
       - name: Rebuild the dist/ directory
         run: npm run dev
 
-      - name: Compare the expected and actual dist/ directories
+      # If dist/index.js was different than expected, push changes
+      - name: check for changes
+        id: git-diff
         run: |
-          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
-            echo "Detected uncommitted changes after build.  See status below:"
-            git diff
-            exit 1
+          if git diff --exit-code; then
+            echo "::set-output name=changes_exist::false"
+          else
+            echo "::set-output name=changes_exist::true"
           fi
-        id: diff
-
-      # If dist/index.js was different than expected, create a pull request
-      - name: Create pull request
-        id: create-pull-request
-        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: Build 📦
-          commit-message: Build 📦
-          branch: build
-          delete-branch: true
-          # labels: |
-          #   automated
-          assignees: Shresht7
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: push
+        if: ${{ steps.git-diff.outputs.changes_exist == 'true' }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Build 📦'
+          git push
 
   # Test
   # ----
