@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 7351:
@@ -12456,15 +12456,15 @@ const helpers_1 = __nccwpck_require__(3202);
 /** Gist-Mirror Action */
 function action() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (const [id, filePaths] of Object.entries(config_1.gists)) {
+        for (const gist of config_1.gists) {
             //  Check if the gist already exists...
-            const exists = yield (0, helpers_1.gistExists)(id);
+            const exists = yield (0, helpers_1.gistExists)(gist.id);
             if (!exists) {
                 continue;
             } //  ...Skip this gist if it doesn't
             //  Populate files object
-            const files = (0, library_1.readFiles)(filePaths);
-            core.info(`Updating Gist (ID: ${id})`);
+            const files = (0, library_1.readFiles)(gist.files);
+            core.info(`Updating Gist (ID: ${gist.id})`);
             //  Exit out of the loop early if dry-run is enabled
             if (config_1.isDryRun) {
                 core.warning('Note: This is a dry-run');
@@ -12472,7 +12472,8 @@ function action() {
             }
             //  Update gist
             yield library_1.octokit.rest.gists.update({
-                gist_id: id,
+                gist_id: gist.id,
+                description: gist.description,
                 files
             });
         }
@@ -12537,6 +12538,9 @@ exports.isDryRun = core.getBooleanInput(metadata_1.inputs.isDryRun) || false;
 /** Gists Config. YAML mapping GistIDs to their corresponding files */
 const gistsInput = core.getMultilineInput(metadata_1.inputs.gists, { required: true }).join('\n');
 exports.gists = yaml.load(gistsInput);
+if (!Array.isArray(exports.gists)) {
+    throw new Error('Invalid gists input. Failed to parse as an array');
+}
 
 
 /***/ }),
@@ -12855,6 +12859,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.octokit = void 0;
+//  Library
 const github = __importStar(__nccwpck_require__(5438));
 //  =======
 //  OCTOKIT
@@ -12862,7 +12867,7 @@ const github = __importStar(__nccwpck_require__(5438));
 /** Personal-Access-Token with gist permissions. */
 const GIST_TOKEN = process.env.GIST_TOKEN || '';
 if (!GIST_TOKEN) {
-    throw new Error('Invalid GIST_TOKEN');
+    throw new Error('Invalid GIST_TOKEN. You need to provide a personal-access-token with gist permissions for the Gist-Mirror action');
 }
 //  ------------------------------------------------
 exports.octokit = github.getOctokit(GIST_TOKEN);
@@ -13153,3 +13158,4 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=index.js.map
