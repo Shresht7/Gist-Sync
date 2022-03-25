@@ -10,10 +10,10 @@ changelog:
 
   exclude:
     labels:
-    # - ignore-for-release
+      - ignore-for-release
 
     authors:
-      # - github-actions[bot]
+      - github-actions[bot]
 
   categories:
     - title: Breaking Changes 🛠
