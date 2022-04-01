@@ -46,6 +46,7 @@ jobs:
       # If dist/index.js was different than expected, push changes
       - name: check for changes
         id: git-diff
+        if: ${{ github.ref == 'main' }}
         run: |
           if git diff --exit-code; then
             echo "::set-output name=changes_exist::false"
