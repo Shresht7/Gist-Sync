@@ -31,7 +31,7 @@ Mirror files from your repository to GitHub Gists
 
 - [📑 Permissions](#-permissions)
 - [📖 Usage](#-usage)
-  - [1. Workflow Setup](#1-workflow-setup)
+  - [Workflow Setup](#workflow-setup)
     - [1. Gist Token](#1-gist-token)
     - [2. Gist](#2-gist)
     - [3. Workflow](#3-workflow)
@@ -53,7 +53,7 @@ This action needs a [**personal access token**](https://docs.github.com/en/authe
 
 ## 📖 Usage
 
-### 1. Workflow Setup
+### Workflow Setup
 
 #### 1. Gist Token
 
