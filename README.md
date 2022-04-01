@@ -25,6 +25,24 @@ Mirror files from your repository to GitHub Gists
 
 </div>
 
+<details>
+
+<summary align='center'>Table of Contents</summary>
+
+- [📑 Permissions](#-permissions)
+- [📖 Usage](#-usage)
+  - [1. Workflow Setup](#1-workflow-setup)
+    - [1. Gist Token](#1-gist-token)
+    - [2. Gist](#2-gist)
+    - [3. Workflow](#3-workflow)
+  - [On Push Trigger](#on-push-trigger)
+- [📋 Inputs](#-inputs)
+  - [gists](#gists)
+  - [dry-run](#dry-run)
+- [📃 Workflow Example](#-workflow-example)
+- [📑 License](#-license)
+
+</details>
 
 -------------
 
@@ -122,7 +140,7 @@ To see a working example, see [Workflow Example](#-workflow-examples).
 <!-- slot: inputs  -->
 | Input     | Description                                          |     Default | Required |
 | :-------- | :--------------------------------------------------- | ----------: | :------: |
-| `gists`   | YAML mapping Gist IDs to their corresponding files   | `undefined` |     ✅    |
+| `gists`   | YAML mapping Gist IDs to their corresponding files   | `undefined` |    ✅     |
 | `dry-run` | No actual changes will be made if dry-run is enabled |     `false` |          |
 <!-- /slot -->
 
@@ -161,7 +179,7 @@ To see a working example of this action, see this [workflow](./.github/workflows
 
   <br />
 
-<!-- slot: workflow-example prepend ```yaml, append: ``` -->
+<!-- slot: workflow-example, prepend ```yaml, append: ``` -->
 ```yaml
 # ===========================================
 #                 GIST-MIRROR
